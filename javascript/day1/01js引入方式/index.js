@@ -1,0 +1,1 @@
+alert("我是index.js文件")
