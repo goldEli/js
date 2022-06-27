@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const num1 = Number(prompt("第1个数"));
+      const num2 = Number(prompt("第2个数"));
+      const num3 = Number(prompt("第3个数"));
+
+      if (num1 >= num2 && num1 >= num3) {
+        alert(num1 + "最大");
+      } else if (num2 >= num1 && num2 >= num3) {
+        alert(num2 + "最大");
+      } else if (num3 >= num1 && num3 >= num2) {
+        alert(num3 + "最大");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 年小于18岁，周一到周五，上课
+      // 年大于18岁，周日，去逛街
+      // 年大于70岁，周二，去看电影
+      const age = parseInt(window.prompt("input your age"));
+      const day = parseInt(window.prompt("星期几"));
+
+      // 小于18岁未成年
+      if (age < 18 && 1 <= day <= 5) {
+        alert("上课");
+      } else if (age > 18 && day === 7) {
+        alert("逛街");
+      } else if (age > 70 && day === 2) {
+        alert("看电影");
+      }
+
+      /**
+       * 无论怎么样，只能执行一个条件
+      */
+    </script>
+  </body>
+</html>

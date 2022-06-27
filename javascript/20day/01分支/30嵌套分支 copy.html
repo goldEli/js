@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 年小于18岁，周一到周五，上课，反之打游戏
+      const age = window.prompt("input your age");
+      const day = window.prompt("星期几");
+
+      // 小于18岁未成年
+      if (age < 18) {
+        if (1<=day <= 5) {
+            alert("上学")
+        } else {
+            alert("打游戏")
+        }
+      } 
+
+      /**
+       * if 条件语句可以嵌套，无限嵌套
+       * 但是不建议嵌套，因为会导致代码很难调试
+       * 最多嵌套一层
+       */
+    </script>
+  </body>
+</html>
