@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+
+      // 将b字符串转为 整数 parseInt()
+      console.log(10 + '10'); // 将字符串'20'转成了数值20 就可以正常相加了
+      console.log(10 + parseInt('10')); // 将字符串'10'转成了数值10 就可以正常相加了
+
+      // 将b字符串转为 小数 parseFloat()
+      console.log(10 + parseFloat('10.2')); // 将字符串'10.2'转成了数值10.2 就可以正常相加了
+
+      // 用 Number() 这个方法也可以转
+      console.log(Number("10.2"))
+      console.log(Number("10a.2")) // NaN  not a number
+
+      // 转字符串 String()
+      console.log(String(123))
+
+      // 转布尔值Boolean()
+      // 0,null,undefine -> false
+      // 非0 -> true
+      console.log(Boolean(0)) // false
+      console.log(Boolean(null)) // false
+      console.log(Boolean(undefined)) // false
+      console.log(Boolean(1)) // true
+      console.log(Boolean("123")) // true
+    </script>
+  </body>
+</html>
