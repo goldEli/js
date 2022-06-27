@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 之前我们讲了变量，就是一个盒子
+       * 那么盒子里面能装什么呢？
+       * 我们把装在盒子的东西称之为数据
+       */
+
+      /**
+       * 数据分为两种类型
+       * 基本数据类型和引用数据类型
+       */
+
+      /**
+       * 基本数据类型有：
+       * number 数值，string 字符串，boolean 布尔值，null 空, undefine 未定义
+       * 引用类型
+       * object 对象，array 数组， function 函数
+       * 其实后面两个都是属于第一个
+       */
+
+      /**
+       * number
+       * 123456 -2 1.1
+       *
+       */
+      let number = 2;
+
+      /**
+       * string
+       * 用单引号或者双引号包裹起来
+       *
+       * “tom” 'tom'
+       */
+      //   let name = "tom"
+      let name = "tom";
+      // 字符串里本来就有引号怎么办
+      let text = '小王说："大家好"';
+      let text1 = "小王说：'大家好'";
+      // 单引号里面包双引号，双引号里包单引号
+
+      /**
+       * boolean 布尔值
+       * 只表示两个值 真和假
+       *
+       * 真：true
+       * 假：false
+       */
+      let bool = false;
+      let bool1 = true;
+
+      /**
+       * undefine 未定义
+       */
+      let name1;
+      console.log("name1:", name1);
+
+      /**
+       * null 盒子为空
+       */
+      let name2 = null;
+      console.log("name2:", name2);
+
+      /**
+       * 判断类型
+      */
+     console.log("number 是什么类型:", typeof number)
+     console.log("name 是什么类型:", typeof name)
+    </script>
+  </body>
+</html>
