@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+         * 1.用代码实现
+      变量a中存储的数字10，变量b中存储的数字是3
+      1）a除以b后，并取整，在页面输出得到的结果？
+
+      2）将a%b后得到的结果转换为字符串类型，在打印台输出得到的结果，并验证最终的结果数据类型是否为字符串
+        */
+
+      // const a = 10;
+      // const b = 3;
+      // document.write(parseInt(a/b))
+      // document.write('<br/>')
+      // document.write(String(a/b))
+      // document.write('<br/>')
+      // document.write(typeof String(a/b))
+
+      /**
+       * 2.用代码实现
+      输入一数字作为秒数，在页面按小时，分钟，秒的格式输出（ 如输入600，页面显示：0小时10分0秒 ）
+      */
+      //  const inputSeconds = Number(window.prompt("请输入多少秒"))
+      //  let hours = parseInt(inputSeconds/60/60)
+      //  let minutes = parseInt((inputSeconds - hours*60*60) / 60)
+      //  let seconds = inputSeconds - hours*60*60 - minutes*60
+
+      //  alert(hours + "小时" + minutes + "分" + seconds + "秒")
+
+      /**
+       * 3.用三元运算符实现
+      1）小明和妈妈约定，期末考试如果语文数学成绩都是满分100，周末妈妈就带他去游乐园，否则就只有在家改错题
+
+      2）小明考了双百分，妈妈周末带小明去游乐园玩了一天，随后和小明约定，如果明年小明还能拿到双百分并且奥数能够获得华杯赛前90名就带他去迪斯尼乐园，否则就只有后年再努力了
+      */
+      //   const chineseScores = Number(window.prompt("小明中文多少分？"))
+      //   const mathScores = Number(window.prompt("小明数学多少分？"))
+
+      //   alert((chineseScores === 100 && mathScores === 100) ? "去游乐场玩" : "在家改错题")
+
+      /**
+       * 3. 计算以下结果
+      let a = (10 * 3 - 4 / 2 + 1) % 2, // a = 1
+      　　b = 3;
+      b %= a + 3; // b = b % (a + 3)=3
+      console.log(a++);
+
+      console.log(--b);
+      */
+
+      //   let a = (10 * 3 - 4 / 2 + 1) % 2; // a = 1
+      //   let b = 3;
+      //   b %= a + 3; // b = b % (a + 3)=3
+      //   alert(a++);
+
+      //   alert(--b);
+
+      /**
+       * 4. var a = 123; var b = 234; 要求交换 a 和 b 的值。
+       */
+    //   let a = 123;
+    //   let b = 234;
+    //   let temp = a;
+    //   a = b
+    //   b = temp
+    </script>
+  </body>
+</html>
