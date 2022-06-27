@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 加 减 乘 除 取余
+       */
+
+      /**
+       * 加
+       */
+      console.log(100 + 100); // 200
+      console.log("hello " + "world!"); // hello world!(字符串拼接，只有加法中才出现)
+
+      /**
+       * 减法 乘法 除法
+      */
+     console.log("100-100 =",100-100) //0
+     console.log("100 * 100 =", 100 * 100) //0
+     console.log("100 / 100 =", 100 / 100) //0
+
+     console.log(100-"100")
+     // js会自动转换（隐式转换）
+     console.log(100-100)
+     /**
+      * 遇到减法 乘法 除法时 自动转换 （知道就行了，永远不要这样写）
+      * '100' -> 100
+      * true -> 1
+      * false -> 0
+      * null -> 0
+      * undefined -> NaN
+     */
+
+     /**
+      * 取余
+      * 通过取余可以判断奇数偶数
+     */
+    console.log(100%3) // 1
+    console.log(100%2) // 0
+    </script>
+  </body>
+</html>
