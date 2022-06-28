@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 数组
+       * 数组是另一种盒子
+       * 可以存多个数据
+       */
+
+      /**
+       * 如何创建数组
+       */
+      //    const arr = []
+      const arr = [1, 2, 3];
+      console.log(arr);
+      /**
+       * 怎么获取某一个值
+       * 根据索引获取对应的值
+       * 索引 从 0 开始，0,1,2,3,4
+       */
+      // 获取索引值为0的值
+      const first = arr[0];
+
+      const third = arr[2];
+      console.log("first:", first); // 1
+      console.log("third:", third); // 2
+      console.log(arr[3]); // undefine
+
+      /**
+       * 获取数组长度
+       */
+      const length = arr.length;
+      console.log("length:", length);
+
+      /**
+       * 为数组添加数据
+       */
+      arr.push(4);
+      console.log("添加后的数组", arr);
+    </script>
+  </body>
+</html>
