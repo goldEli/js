@@ -8,18 +8,13 @@
   </head>
   <body>
     <script>
-      
-      /**
-       * 画正方形 长10 宽是5
-       */
-      // 画4次边
-      for (let j = 0; j < 5; ++j) {
-        // 画一条为10的边
-        for (let i = 0; i < 10; i++) {
-          document.write("#");
+      for (let i = 0; i < 5; ++i) {
+        for (let j = 0; j < 5; ++j) {
+          if (i === 3) {
+            break; // 退出当前的for循环
+          }
+          console.log("i,j", i, j);
         }
-        // 每次画一条边的时候 换行
-        document.write("<br/>");
       }
     </script>
   </body>
