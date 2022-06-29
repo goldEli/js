@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 控制画多少行
+      for (let row = 0; row < 5; row++) {
+        //控制一行我们画多少个空格
+        for (let space = row; space < 5; space++) {
+          document.write("&nbsp;");
+        }
+        //控制着我们画多少个*
+        for (let star = 0; star <= row * 2; star++) {
+          document.write("*");
+        }
+        document.write("<br>");
+      }
+    </script>
+  </body>
+</html>
