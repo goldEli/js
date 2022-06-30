@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const arr = [1, 2, 3, 4, 5];
+      /**
+       * 添加
+       */
+      // 添加到最后
+      arr.push(6);
+      console.log("arr", arr);
+      // 添加到最前面
+      arr.unshift(0);
+      console.log("arr", arr);
+      /**
+       * 删除
+       */
+      // 删除最后一个
+      arr.pop();
+      console.log("arr", arr);
+      // 删除第一个
+      arr.shift();
+      console.log("arr", arr);
+      // 删除特定某一个（⚠️当删除之后，后面的下标也会发生改变）
+      // splice(起始下标，删除几个)
+      arr.splice(1, 1); // 从某个下标开始删除多少个
+      console.log("arr", arr);
+      /**
+       * 插入
+       * splice(起始下标，删除0个，添加的内容)
+       */
+      // 第一个位置开始插入 33 44
+      arr.splice(1, 0, 33, 44);
+      console.log("arr", arr);
+
+      /**
+       * 数组合并
+       */
+      const arr1 = [1, 2, 3];
+      const arr2 = [4, 5, 6];
+      console.log("arr1.concat(arr2)", arr1.concat(arr2));
+
+      /**
+       * 返回新数组
+       * ⚠️有的方法会返回新的数组 有的不会
+       */
+      const arr3 = [1, 2, 3];
+      // const arr4 =  arr3.concat([4]) // [1,2,3,4]
+      // console.log('arr4',arr4)
+
+      const arr4 = arr3.push(4);
+      console.log("arr4", arr4); // 4
+
+      /**
+       * 数组截取
+       * [1,2,3,4,5]
+       * =>
+       * [2,3]
+       * slice(起始坐标, 终止坐标+1)
+       */
+      const arr5 = [1, 2, 3, 4, 5];
+      const arr6 = arr5.slice(1, 2 + 1);
+      console.log("arr6", arr6);
+
+      /**
+       * 数组串联
+       * [2022,06,08]
+       * =>
+       * "2022-06-08"
+       */
+      const arr7 = [2022, 06, 08];
+      const str = arr7.join("-");
+      console.log("str", str);
+
+      /**
+       * 数组反转
+       * [1,2,3]
+       * =>
+       * [3,2,1]
+       */
+      const arr8 = [1, 2, 3];
+      const arr9 = arr8.reverse();
+      console.log("arr9", arr9);
+
+      /**
+       * 清空数组的方法
+       */
+      let arr10 = [1, 2, 3];
+      // 第一种
+      // arr10.length = 0
+      // 第二种
+      arr10 = [];
+      console.log("arr10", arr10);
+    </script>
+  </body>
+</html>

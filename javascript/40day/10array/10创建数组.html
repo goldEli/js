@@ -15,7 +15,7 @@
        */
 
       /**
-       * 如何创建数组
+       * 如何创建数组，字面量方式
        */
       //    const arr = []
       const arr = [1, 2, 3];
@@ -40,10 +40,26 @@
       console.log("length:", length);
 
       /**
-       * 为数组添加数据
+       * 通过循环遍历获取数组内容
+       * 0 , 1,2,3
        */
-      arr.push(4);
-      console.log("添加后的数组", arr);
+
+      const arr1 = [11, 22, 33, 44];
+      // 对应的下标是 0,1,2,3
+      for (let i = 0; i < arr1.length; ++i) {
+        console.log(arr1[i]);
+      }
+
+      /**
+       * 通过 new 创建数组
+       */
+      const arr2 = new Array(11, 22, 33, 44);
+      console.log("arr2", arr2);
+      /**
+       * 数组的值可以使不同类型
+      */
+     const arr3 = [1, true, null, undefined, "hello"]
+     console.log('arr3', arr3)
     </script>
   </body>
 </html>
