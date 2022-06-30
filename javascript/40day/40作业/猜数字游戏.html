@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 2.猜数字游戏，有一个0-100随机数 玩家有5次输入的机会猜，
+
+每次猜一次，都要将结果告诉玩家是小了，还是大了
+
+如果在5次机会内猜中，输出“聪明”，程序结束
+
+如果5次机会用完 程序直接结束。 */
+      const randomNUmber = parseInt(Math.random() * 101);
+      for (let i = 0; i < 5; ++i) {
+        const inputNumber = parseInt(window.prompt("请输入数字"));
+        if (inputNumber === randomNUmber) {
+          alert("聪明");
+          break;
+        }
+        if (inputNumber > randomNUmber) {
+          alert("大了");
+        } else {
+          alert("小了");
+        }
+      }
+      alert("结束");
+    </script>
+  </body>
+</html>
