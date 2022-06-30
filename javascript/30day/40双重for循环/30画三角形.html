@@ -8,17 +8,34 @@
   </head>
   <body>
     <script>
-      // 控制画多少行
-      for (let row = 0; row < 5; row++) {
-        //控制一行我们画多少个空格
-        for (let space = row; space < 5; space++) {
-          document.write("&nbsp;");
+      /* 2：用*画等腰三角形
+
+      提示：画空格用&nbsp;或者&ensp;
+
+      如：
+         *
+        ***
+       *****
+      ******* */
+
+      /**
+       * i=0 3空格 1心心
+       * i=1 2空格 3心心
+       * i=2 1空格 5心心
+       * i=3 0空格 7心心
+       */
+
+      // 画行
+      for (let i = 0; i < 4; ++i) {
+        // 画空格
+        for (let j = 0; j < 3 - i; ++j) {
+          document.write("&nbsp");
         }
-        //控制着我们画多少个*
-        for (let star = 0; star <= row * 2; star++) {
+        // 画心心
+        for (let k = 0; k < 2 * i + 1; ++k) {
           document.write("*");
         }
-        document.write("<br>");
+        document.write("<br/>");
       }
     </script>
   </body>
