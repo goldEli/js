@@ -36,16 +36,16 @@ var arr = [1,2,2,2,3,3,4,5,2,3,4,4,2,23,4,5,3,54,3,3,4]  使数组的每一项�
 
 只有位置和数字完全正确才算正确，其他情况全视为错误。 */
 
-const arr = []
+// const arr = []
 
-for (let i = 0; i < 4; ++i) {
-    const randomNumber = parseInt(Math.random() * 10)
-    arr.push(randomNumber)
-}
-console.log('arr', arr)
-for (let i = 0; i<10; ++i) {
-    const inputNumber = parseInt(window.prompt("请输入一个四位数"))
-}
+// for (let i = 0; i < 4; ++i) {
+//     const randomNumber = parseInt(Math.random() * 10)
+//     arr.push(randomNumber)
+// }
+// console.log('arr', arr)
+// for (let i = 0; i<10; ++i) {
+//     const inputNumber = parseInt(window.prompt("请输入一个四位数"))
+// }
 
 
 
@@ -54,3 +54,19 @@ for (let i = 0; i<10; ++i) {
 思路：每次产生一个随机球，存入数组中，下一次产生的随机球，要和数组中的进行比较，如果有相等的，
 
 则重新产生一个号（循环变量要减1），反之继续存入数组；直到产生6个球；蓝球单独产生；最后输出所有球。 */
+var red = [];
+
+// 生成红色球
+for(var i = 0;i < 6;i++){
+  // 生成随机数
+  var p = Math.floor(Math.random() * 33 + 1);
+  if(red.indexOf(p) == -1) { // 判断没有重复
+    red.push('红色' + p);
+  } else {
+    // 如果重复了，则需要减去该次操作
+    i--;
+  }
+}
+console.log(red);
+
+var blue = '蓝色' + Math.floor(Math.random() * 16 + 1);
