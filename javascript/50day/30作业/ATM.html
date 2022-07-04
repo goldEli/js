@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.开始循环，输入框一定要记得写到循环里面
+      // 3.准备一个总的金额
+      // money这个变量必须放到循环的外面，如果你放到循环的里面，每次都会重新复制100，琺实现存取功能
+      let money = 100;
+
+      while (true) {
+        let re = +prompt(`
+          请选择操作
+          1.存钱
+          2.取钱
+          3.查看余额
+          4.退出
+          `);
+        // 2.如果用户输入4，则退出循环break
+        if (re === 4) {
+          break;
+        }
+        // 4.根据输入做操作
+        switch (re) {
+          case 1:
+            // 存钱
+            money += +prompt("请输入存款金额");
+            break;
+          case 2:
+            // 取钱
+            let take = +prompt("请输入取款金额");
+            money -= take;
+            break;
+          case 3:
+            // 余额
+            alert(`银行卡余额为${money}`);
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
