@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box" class="box"></div>
+    <script>
+      function getRandomColor() {
+        var str = "rgb(";
+        for (var i = 0; i < 3; i++) {
+          if (i === 2) {
+            str += parseInt(Math.random() * 255);
+            continue;
+          }
+          str += parseInt(Math.random() * 255) + ",";
+        }
+        str += ")";
+        return str;
+      }
+      const randomColor = getRandomColor();
+
+      // 获取box的dom节点
+      const box = document.getElementById("box");
+      console.log("box", box, randomColor);
+      // 修改box的style的backgroundColor
+      box.style.backgroundColor = randomColor;
+    </script>
+  </body>
+</html>

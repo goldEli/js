@@ -15,6 +15,7 @@
   </head>
   <body>
     <div id="box" class="box"></div>
+    <button id="btn">换颜色</button>
     <script>
       function getRandomColor() {
         var str = "rgb(";
@@ -28,12 +29,18 @@
         str += ")";
         return str;
       }
-      const randomColor = getRandomColor();
 
-      // 获取box的dom节点
-      const box = document.getElementById("box");
-      console.log("box", box, randomColor);
-      box.style.backgroundColor = randomColor;
+      // 获取btn的dom节点
+      const btn = document.getElementById("btn");
+      btn.onclick = function () {
+        const randomColor = getRandomColor();
+
+        // 获取box的dom节点
+        const box = document.getElementById("box");
+
+        console.log("box", box, randomColor);
+        box.style.backgroundColor = randomColor;
+      };
     </script>
   </body>
 </html>
