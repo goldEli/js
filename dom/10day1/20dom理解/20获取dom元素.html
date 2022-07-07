@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="myDiv">my div</div>
+    <p>我是p1</p>
+    <p>我是p2</p>
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <script>
+       /**
+        * 通过id获取
+       */
+       console.log(
+         'document.getElementById("myDiv")',
+         [document.getElementById("myDiv")]
+       );
+       /**
+        * 通过标签获取
+        * 1. 返回集合，不是数组，因为没有push方法
+        * 2. 修改时需要指定哪一个
+       */
+      const myP = document.getElementsByTagName("p")
+       console.log(myP);
+       myP[1].style.color = "red"
+       /**
+        * 通过class
+       */
+      const myClass = document.getElementsByClassName("box")
+      console.log('myClass', myClass)
+      
+    </script>
+  </body>
+</html>

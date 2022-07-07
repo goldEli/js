@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="box1">
+      <p style="color: red" id="text">123</p>
+    </div>
+    <script>
+      /**
+       * 什么是dom?
+       * document object model 文档对象模型
+       * HTML DOM 定义了访问和操作 HTML 文档的标准方法。
+       * HTML DOM 类似于树形结构（标签嵌套）
+       * HTML DOM 是关于如何获取、修改、添加或删除 HTML 元素的标准。
+       */
+      console.log(document);
+
+      // 获取到 text 节点
+
+      const text = document.getElementById("text");
+      console.log("text: ", text);
+
+      // 修改节点颜色
+      text.style.color = "blue";
+      // 修改节点文字
+      text.textContent = "321";
+      // 为节点增加点击事件
+      text.onclick = function () {
+        alert("我被点击了");
+      };
+
+      /**
+       * HTML 文档中所有内容都是节点
+       *
+       * 1. 整个文档是一个文档节点
+       * 2. 每个html 元素是元素节点
+       * 3. html 中的文本是文本节点
+       * 4. 每个html 属性是属性节点
+       * 5. 注释就是注释节点
+       *
+       */
+    </script>
+  </body>
+</html>
