@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="father" class="father">
+      111
+      <div class="son">1</div>
+      222
+      <div id="secondChild" class="son">2</div>
+      333
+      <div class="son">3</div>
+      <div class="son">4</div>
+      <div class="son">5</div>
+      666
+    </div>
+    <script>
+      const father = document.getElementById("father");
+      const secondChild = document.getElementById("secondChild");
+      /* 获取上一个文本节点 */
+      console.log(secondChild.previousSibling);
+      /* 获取上一个元素节点 */
+      console.log(secondChild.previousElementSibling);
+
+      /* 获取下一个文本节点 */
+      console.log(secondChild.nextSibling);
+      /* 获取下一个元素节点 */
+      console.log(secondChild.nextElementSibling);
+
+      /* 获取节点的子节点 */
+      console.log(father.childNodes);
+      console.log(father.children); // ⚠️不包含文本节点
+
+      console.log("第一个子文本节点", father.firstChild);
+      console.log("第一个子元素节点", father.firstElementChild);
+
+      console.log("最后一个子文本节点", father.lastChild);
+      console.log("最后一个子元素节点", father.lastElementChild);
+
+      /* 获取父节点 */
+      console.log(secondChild.parentNode)
+    </script>
+  </body>
+</html>
