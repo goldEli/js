@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="myDiv">
+      <h1>1</h1>
+      <h1>2</h1>
+      <h1>3</h1>
+    </div>
+    <script>
+      // 只取最前面一个
+      console.log(document.querySelector("#myDiv h1"));
+      // 获取所有
+      console.log(document.querySelectorAll("#myDiv h1"));
+
+      /* 
+            querySelector 和 getElementXXXX 区别
+            querySelector 静态获取 不会随着文档改变而改变
+            getElementXXXX 动态获取
+        */
+
+      let div = document.getElementById("myDiv");
+      let myh1 = document.getElementsByTagName("h1");
+      let myh2 = document.querySelectorAll("#myDiv h1");
+
+    //   for (let i = 0; i < myh1.length; i++) {
+    //     console.log(i);
+    //     //增加节点
+    //     let myChildNode = document.createElement("h1");
+    //     div.appendChild(myChildNode);
+    //   }
+      //这种会造成死循环，不停的增加，因为myh1的长度一直在发生变化
+
+      for (let i = 0; i < myh2.length; i++) {
+        console.log(i);
+        //增加节点
+        let myChildNode = document.createElement("h1");
+        div.appendChild(myChildNode);
+      }
+      //这种只会打印刚开始获取到的
+    </script>
+  </body>
+</html>
