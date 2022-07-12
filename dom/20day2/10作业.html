@@ -1,88 +1,92 @@
 <!DOCTYPE html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Title</title>
-  <style>
-    #nameBox {
-      border: 1px solid red;
-      width: 500px;
-      min-height: 300px;
-      padding: 20px 0;
-    }
-    #nameBox img {
-      width: 16px;
-    }
-    .item {
-      padding: 10px;
-      float: left;
-      margin: 10px 20px;
-      background-color: pink;
-    }
-    #delAll {
-      width: 200px;
-      height: 50px;
-      line-height: 50px;
-      text-align: center;
-      background-color: #1bbc9b;
-    }
-  </style>
-</head>
-<body>
-  <h3>点击添加按钮,添加标签</h3>
-  <div id="nameBox">
-    <!-- <div class="item"><span>耶利亚</span><img src="images/close.png" /></div> -->
-  </div>
-  <div id="delAll" onclick="delAll()">删除全部</div>
-  <!--写一个方法  我告诉添加什么文字你就添加什么文字  这个方法需要添加的文字-->
-  <div id="addList"></div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      #nameBox {
+        border: 1px solid red;
+        width: 500px;
+        height: 300px;
+        padding: 20px 0;
+        display: flex;
+      }
+      #nameBox img {
+        width: 16px;
+      }
+      .item {
+        height: 30px;
+        padding: 10px;
+        margin: 10px 20px;
+        background-color: pink;
+        overflow: hidden;
+      }
+      #delAll {
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #1bbc9b;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>点击添加按钮,添加标签</h3>
+    <div id="nameBox">
+      <!-- <div class="item"><span>耶利亚</span><img src="images/close.png" /></div> -->
+    </div>
+    <div id="delAll" onclick="delAll()">删除全部</div>
+    <!--写一个方法  我告诉添加什么文字你就添加什么文字  这个方法需要添加的文字-->
+    <div id="addList"></div>
 
-  <script>
-    //模拟任务数据
-    let people = ["耶利亚", "小明", "五五开"];
-    // 通过这个数据去渲染有多少个按钮
-    var addList = document.getElementById("addList");
-    var nameBox = document.getElementById("nameBox");
+    <script>
+      //模拟任务数据
+      let people = ["耶利亚", "小明", "五五开"];
+      // 通过这个数据去渲染有多少个按钮
+      var addList = document.getElementById("addList");
+      var nameBox = document.getElementById("nameBox");
 
-    function createAddList() {
-      people.forEach(function (item, i) {
-        addList.innerHTML =
-          addList.innerHTML +
-          `
-        <div>
-            <span>${item}</span>
-            <button onclick="addItem('${people[i]}')">添加</button>
-        </div>
-        `;
-      });
-    }
+      function createAddList() {
+        people.forEach(function (item, i) {
+          addList.innerHTML =
+            addList.innerHTML +
+            `
+              <div>
+                  <span>${item}</span>
+                  <button onclick="addItem('${people[i]}')">添加</button>
+              </div>
+              `;
+        });
+      }
 
-    function addItem(str) {
-      // 2.1 验证形参里面装的是不是我想要的东西
-      console.log(str);
-      // 2.2 将div添加到nameBox里面去
-      //2.2.1 要现有div-->创建div节点  到这里只是创建了容器而已  还需要将内容一个一个的创建出来
-      let div = document.createElement("div");
-      let span = document.createElement("span");
-      let img = document.createElement("img");
-      let strNode = document.createTextNode(str);
-      // 2.2.2 需要将创建出来的东西进行组装
-      span.appendChild(strNode);
-      div.appendChild(span);
-      div.appendChild(img);
-      nameBox.appendChild(div);
-      //通过审查元素看到  div没有class  img没有src
-      //通过js添加class 给img添加src的属性
-      div.setAttribute("class", "item");
-      img.setAttribute("src", "images/close.png");
-      img.onclick = function () {
-        nameBox.removeChild(this.parentNode);
-      };
-    }
+      function addItem(str) {
+        // 2.1 验证形参里面装的是不是我想要的东西
+        console.log(str);
+        // 2.2 将div添加到nameBox里面去
+        //2.2.1 要现有div-->创建div节点  到这里只是创建了容器而已  还需要将内容一个一个的创建出来
+        let div = document.createElement("div");
+        let span = document.createElement("span");
+        let img = document.createElement("img");
+        let strNode = document.createTextNode(str);
+        // 2.2.2 需要将创建出来的东西进行组装
+        span.appendChild(strNode);
+        div.appendChild(span);
+        div.appendChild(img);
+        nameBox.appendChild(div);
+        //通过审查元素看到  div没有class  img没有src
+        //通过js添加class 给img添加src的属性
+        div.setAttribute("class", "item");
+        img.setAttribute("src", "images/close.png");
+        img.onclick = function () {
+          nameBox.removeChild(this.parentNode);
+        };
+      }
 
-    function delAll() {
-      nameBox.innerHTML = "";
-    }
+      function delAll() {
+        nameBox.innerHTML = "";
+      }
 
-    createAddList();
-  </script>
-</body>
+      createAddList();
+    </script>
+  </body>
+</html>
