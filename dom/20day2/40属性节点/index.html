@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <a href="www.baidu.com" id="mya">跳转</a>
+    <img id="myImg" alt="" >
+    <script>
+      let mya = document.getElementById("mya");
+      /**
+       * 获取属性节点
+      */
+      console.log(mya.attributes); //获取所有的属性节点
+      console.log(mya.getAttributeNode("href")); //获取某个属性节点
+      console.log(mya.getAttribute("href")); //获取某个属性节点的值
+      // console.log(mya.href); //获取某个属性节点的值
+      /**
+       * 添加属性节点
+      */
+     let myImg = document.getElementById("myImg")
+     myImg.setAttribute("src", "./images/123.png")
+     myImg.setAttribute("class", "123")
+
+     /**
+      * 删除属性
+     */
+    // mya.removeAttribute('href')
+
+    </script>
+  </body>
+</html>
