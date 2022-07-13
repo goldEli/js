@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="color font bg" id="box"></div>
+    <script>
+        let box = document.getElementById('box')
+        // 设置类名
+        // box.className = "haha"
+        // 添加类名
+        box.classList.add("123")
+        // 删除所有类名
+        // box.className = ""
+        console.log('%c [ box ]-19', 'font-size:13px; background:pink; color:#bf2c9f;', [box])
+        // 删除某个类
+        box.classList.remove("bg")
+    </script>
+</body>
+</html>
