@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <p id="text1">text1</p>
+        <h1>我是h1</h1>
+        <h1>我是h1</h1>
+        <h1>我是h1</h1>
+        <h1>我是h1</h1>
+    </div>
+    <script>
+        let box = document.getElementById("box")
+        let text1 = document.getElementById("text1")
+
+        let h1 = document.createElement('h1')
+        let text = document.createTextNode("我是替换的文字")
+        h1.appendChild(text)
+        /* 替换节点 */
+        // box.replaceChild(h1,text1)
+        /* 插入节点 */
+        box.insertBefore(h1, text1)
+        /* 克隆节点 */
+        let cloneNode = text1.cloneNode(true)
+        // box.appendChild(cloneNode)
+        /* 删除自己 通过父亲找到自己，然后把自己删除 */
+        // text1.parentNode.removeChild(text1)
+
+        /**
+         * 删除所有h1
+        */
+       const allH1 = document.getElementsByTagName('h1') // 动态获取
+
+    //    while (allH1.length > 0) {
+    //     console.log(allH1.length)
+    //     box.removeChild(allH1[0])
+    //    }
+
+    </script>
+</body>
+</html>
