@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        #mydiv {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+        }
+    </style>
+  </head>
+  <body>
+    <button onclick="move()">动一动</button>
+    <div id="mydiv"></div>
+    <script>
+      //点一下，让物体往右移动，再点一下，又回到原来的位置，反反复复
+      function move() {
+        let mydiv = document.getElementById("mydiv");
+        if (mydiv.style.marginLeft === "0px" || mydiv.style.marginLeft === "") {
+          mydiv.style.marginLeft = "150px";
+        } else {
+          mydiv.style.marginLeft = "0px";
+        }
+      }
+    </script>
+  </body>
+</html>
