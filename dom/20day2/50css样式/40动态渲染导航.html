@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      nav ul {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        list-style: none;
+      }
+
+      nav ul li {
+        width: 200px;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        cursor: pointer;
+        background-color: pink;
+        margin: 1px 0;
+        color: white;
+        overflow: hidden;
+        transition: all 1s linear;
+      }
+      nav > ul > li > ul > li {
+        background-color: skyblue;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+        width: 200px;
+        height: 45px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="myNav"></nav>
+    <script>
+      let nav = document.getElementById("myNav");
+      //模拟后端传过来的数据
+      let menu = [
+        { name: "首页" },
+        {
+          name: "博客",
+          children: [
+            { name: "菜单一" },
+            { name: "菜单二" },
+            { name: "菜单三" },
+          ],
+        },
+        {
+          name: "技术支持",
+          children: [
+            { name: "菜单一" },
+            { name: "菜单二" },
+            { name: "菜单三" },
+            { name: "菜单四" },
+          ],
+        },
+        { name: "操作" },
+        { name: "帮组" },
+        { name: "新闻" },
+      ];
+      //传 需要渲染的数据 和 这些数据放在哪去
+      function render(data, objNode) {
+        let ul = document.createElement("ul");
+        data.forEach(function (item, i) {
+          const li = document.createElement("li");
+          li.innerHTML = `<a onclick="openMenu(this)" href="#">${item.name}</a>`;
+          ul.appendChild(li);
+          if (item.children) {
+            //使用递归调用：自己调用自己
+            render(item.children, li);
+          } 
+        });
+        objNode.appendChild(ul);
+      }
+      render(menu, nav);
+
+      function openMenu(obj) {
+        // 改变谁的 ==>li(哪个) ==>点击的那个li的高度
+        var li = obj.parentNode;
+        // 下面的ul下面的li的个数   利用这个 个数*45
+        let secondMenuLiNumber = li.getElementsByTagName("li").length;
+        let listLi = document.querySelectorAll("#myNav>ul>li");
+
+        //所有li高度 45px
+        for (let i = 0; i < listLi.length; i++) {
+          listLi[i].style.height = "45px";
+        }
+
+        // 选中的li高度
+        li.style.height = (secondMenuLiNumber + 1) * 45 + "px";
+      }
+    </script>
+  </body>
+</html>
