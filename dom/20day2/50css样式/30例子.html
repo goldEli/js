@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      nav ul {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        list-style: none;
+      }
+
+      nav ul li {
+        width: 200px;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        cursor: pointer;
+        background-color: pink;
+        outline: 1px solid white;
+        color: white;
+        overflow: hidden;
+        transition: all 1s linear;
+      }
+      nav > ul > li > ul > li {
+        background-color: skyblue;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+        width: 200px;
+        height: 45px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="mynav">
+      <ul>
+        <li class="listLi"><a onclick="openMenu(this)" href="#">首页</a></li>
+        <li class="listLi">
+          <a onclick="openMenu(this)" href="#">博客</a>
+          <ul class="second-menu">
+            <li>菜单一</li>
+            <li>菜单二</li>
+            <li>菜单三</li>
+          </ul>
+        </li>
+        <li class="listLi">
+          <a onclick="openMenu(this)" href="#">技术支持</a>
+          <ul class="second-menu">
+            <li>菜单一</li>
+            <li>菜单二</li>
+            <li>菜单三</li>
+            <li>菜单四</li>
+          </ul>
+        </li>
+        <li class="listLi"><a onclick="openMenu(this)" href="#">操作</a></li>
+        <li class="listLi"><a onclick="openMenu(this)" href="#">帮组</a></li>
+        <li class="listLi"><a onclick="openMenu(this)" href="#">新闻</a></li>
+      </ul>
+    </nav>
+    <script>
+      function openMenu(obj) {
+        // 改变谁的 ==>li(哪个) ==>点击的那个li的高度
+        var li = obj.parentNode;
+        // 下面的ul下面的li的个数   利用这个 个数*45
+        let secondMenuLiNumber = li.getElementsByTagName("li").length;
+        let listLi = document.getElementsByClassName("listLi");
+
+        //所有li高度 45px
+        for (let i = 0; i < listLi.length; i++) {
+          listLi[i].style.height = "45px";
+        }
+
+        // 选中的li高度
+        li.style.height = (secondMenuLiNumber + 1) * 45 + "px";
+      }
+    </script>
+  </body>
+</html>
