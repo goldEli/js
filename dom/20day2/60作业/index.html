@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #nav {
+        display: flex;
+      }
+      .nav-item {
+        padding: 20px;
+        background-color: #efefef;
+        color: #808584;
+      }
+      .nav-item-active {
+        color: #fff;
+        background-color: #67ad8f;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav"></div>
+    <div id="navContent">
+      <div>
+        <h1>content1</h1>
+        <p>ljsflasjfslfkajdfkaljfladjl</p>
+      </div>
+    </div>
+    <script>
+      // 数据
+      const data = [
+        {
+          title: "导航1",
+          content: `<div>
+            <h1>content1</h1>
+            <p>我是导航1的内容</p>
+        </div>`,
+        },
+        {
+          title: "导航2",
+          content: `<div>
+            <h1>content2</h1>
+            <p>我是导航2的内容</p>
+        </div>`,
+        },
+        {
+          title: "导航3",
+          content: `<div>
+            <h1>content3</h1>
+            <p>我是导航3的内容</p>
+        </div>`,
+        },
+        {
+          title: "导航4",
+          content: `<div>
+            <h1>content4</h1>
+            <p>我是导航4的内容</p>
+        </div>`,
+        },
+      ];
+      // render nav
+      function renderNav() {
+        const nav = document.getElementById("nav");
+        let navInnerHtml = "";
+        data.forEach(function (value, index) {
+          navInnerHtml += `<span data-index="${index}" class="nav-item" onclick="onClick(this)">${value.title}</span>`;
+        });
+        console.log(navInnerHtml);
+        nav.innerHTML = navInnerHtml;
+      }
+
+      // click
+      function onClick(navItem) {
+        // 删除所有选中class
+        const navItemList = document.querySelectorAll("#nav>span");
+        navItemList.forEach(function (value, index) {
+          value.classList.remove("nav-item-active");
+        });
+
+        // 增加选中的class
+        navItem.classList.add("nav-item-active");
+
+        // 修改content 内容
+        const dataIndex = navItem.getAttribute("data-index");
+
+        const content = data[dataIndex].content;
+
+        const navContent = document.getElementById("navContent");
+        navContent.innerHTML = content;
+      }
+
+      function main() {
+        renderNav();
+
+        // 点击第一个
+        const navItemList = document.querySelectorAll("#nav>span");
+        onClick(navItemList[0]);
+      }
+
+      main();
+    </script>
+  </body>
+</html>
