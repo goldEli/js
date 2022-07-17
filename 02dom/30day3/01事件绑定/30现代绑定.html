@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="myDiv">my div</div>
+    <div id="cancel">取消绑定</div>
+    <script>
+      /* 
+            后期退出的
+            性能好
+            但是兼容性不好
+        */
+      const myDiv = document.getElementById("myDiv");
+      function test() {
+        console.log("div click");
+      }
+      
+      myDiv.addEventListener("click", test);
+
+      /* 取消绑定 */
+      const cancel = document.getElementById("cancel");
+      cancel.onclick = function () {
+        myDiv.removeEventListener("click", test);
+      };
+
+      /* 绑定多个，传统就不行 */
+      function test1() {
+        console.log("div click test1");
+      }
+      function test2() {
+        console.log("div click test2");
+      }
+      myDiv.addEventListener("click", test1);
+      myDiv.addEventListener("click", test2);
+    </script>
+  </body>
+</html>
