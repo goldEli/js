@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <select name="" id="mySelect">
+      <option value="1">哈哈</option>
+      <option value="2">你好</option>
+    </select>
+
+    <script>
+      //下拉选中的时候触发
+      document
+        .getElementById("mySelect")
+        .addEventListener("change", function test3(event) {
+          console.log("选中");
+          console.log(event.target.value);
+        });
+    </script>
+  </body>
+</html>

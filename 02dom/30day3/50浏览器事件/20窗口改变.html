@@ -1,0 +1,32 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    html {
+      font-size: 10px;
+    }
+    body {
+      font-size: 16px;
+    }
+    div {
+      width: 20rem;
+      height: 1000rem;
+      font-size: 2rem;
+      border: 0.1rem solid red;
+    }
+  </style>
+</head>
+<body>
+  <div id="div1">哈哈哈</div>
+  <script>
+    /*窗口（大小）改变的时候触发*/
+    window.onresize = function (e) {
+      console.log(e.target.innerWidth);
+      document.getElementsByTagName("html")[0].style.fontSize =
+        (e.target.innerWidth / 1920) * 10 + "px";
+      console.log((e.target.innerWidth / 1920) * 10);
+    };
+  </script>
+</body>

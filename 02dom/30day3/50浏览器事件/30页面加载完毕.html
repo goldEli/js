@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      console.log(document.getElementById("div1")); //  null
+      window.onload = function () {
+        console.log(document.getElementById("div1")); // 会打印出来
+      };
+      //   原因：因为代码是一行一行加载的，如果在这儿打印节点，html还没加载出来，所以会为空
+      //   所以一般js代码都写在html后面，等css html 都加载完了过后再去加载js
+    </script>
+    <div id="div1">哈哈哈</div>
+  </body>
+</html>

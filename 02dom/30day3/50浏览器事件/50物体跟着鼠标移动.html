@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        position: absolute;
+        /* border: 10px solid red; */
+        left: 0;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mydiv" onmousedown="mydrag()"></div>
+    <script>
+      let div = document.getElementById("mydiv");
+      function mydrag() {
+        var downEvent = window.event || arguments[0];
+        var downLeft = downEvent.offsetX; //点击的位置距离该点击元素的X轴位置
+        console.log('%c [ downLeft ]-25', 'font-size:13px; background:pink; color:#bf2c9f;', downLeft)
+        var downTop = downEvent.offsetY; //点击的位置距离该点击元素的Y轴位置
+        div.onmousemove = function () {
+          var moveEvent = window.event || arguments[0];
+          var moveLeft = moveEvent.clientX; //点击的位置距离浏览器可视区窗口的X位置
+          console.log('%c [ moveLeft ]-30', 'font-size:13px; background:pink; color:#bf2c9f;', moveLeft)
+          var moveTop = moveEvent.clientY;
+          // offsetX和offsetY 为什么要用mousedown的event对象而不是mousemove的
+          div.style.left = moveLeft - downLeft + "px";
+          div.style.top = moveTop - downTop + "px";
+        };
+        //解除绑定
+        div.onmouseup = function () {
+          div.onmousemove = null;
+        };
+        //如果鼠标移动快了，div就跟不上
+        //   所以需要把移动事件绑定在 document 文档对象身上
+        // document.onmousemove
+        // document.onmouseup
+      }
+    </script>
+  </body>
+</html>
