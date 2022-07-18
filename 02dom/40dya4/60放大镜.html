@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      #left {
+        width: 400px;
+        height: 250px;
+        border: 1px solid #ccc;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+      }
+      #left > img {
+        width: 400px;
+      }
+      #right {
+        width: 400px;
+        height: 250px;
+        border: 1px solid #ccc;
+        position: absolute;
+        top: 50px;
+        left: 500px;
+        overflow: hidden;
+        display: none;
+      }
+      #left span {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: blue;
+        opacity: 0.3;
+        display: none;
+      }
+      #right img {
+        width: 800px;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="left">
+      <img src="./images/lanrenzhijia1.jpg" alt="" />
+      <span></span>
+    </div>
+    <div id="right">
+      <img src="./images/lanrenzhijia1.jpg" alt="" />
+    </div>
+  </body>
+  <script>
+    var oLeft = document.getElementById("left");
+    var oRight = document.getElementById("right");
+    var oSpan = document.querySelector("#left span");
+    var oImg = document.querySelector("#right img");
+
+    //鼠标移入
+    oLeft.onmouseover = function () {
+      oSpan.style.display = "block";
+      oRight.style.display = "block";
+    };
+    //鼠标移出
+    oLeft.onmouseout = function () {
+      oSpan.style.display = "none";
+      oRight.style.display = "none";
+    };
+    //鼠标移动
+    oLeft.onmousemove = function (ev) {
+      //透明层跟着走
+
+      // 让鼠标在蒙层的中间
+      var l = ev.clientX - oSpan.offsetWidth / 2 - oLeft.offsetLeft;
+      var t = ev.clientY - oSpan.offsetHeight / 2 - oLeft.offsetTop;
+
+      var coverMoveMaxDistance = oLeft.offsetWidth - oSpan.offsetWidth
+
+      // 0<=left<=oLeft.offsetWidth - oSpan.offsetWidth
+      if (l <= 0) {
+        l = 0;
+      } else if (l >= coverMoveMaxDistance) {
+        l = coverMoveMaxDistance;
+      }
+
+      // 0<=top<=oLeft.offsetHeight - oSpan.offsetHeight
+      if (t <= 0) {
+        t = 0;
+      } else if (t >= oLeft.offsetHeight - oSpan.offsetHeight) {
+        t = oLeft.offsetHeight - oSpan.offsetHeight;
+      }
+
+      oSpan.style.left = l + "px";
+      oSpan.style.top = t + "px";
+
+      /*让右边图片走*/
+      // 遮挡层移动距离*大图片最大移动距离/遮挡层最大移动距离 * -1
+      oImg.style.left =
+        (-oSpan.offsetLeft * (oImg.offsetWidth - oRight.offsetWidth)) /
+          (coverMoveMaxDistance) +
+        "px";
+      oImg.style.top =
+        (-oSpan.offsetTop * (oImg.offsetHeight - oRight.offsetHeight)) /
+          (oLeft.offsetHeight - oSpan.offsetHeight) +
+        "px";
+    };
+  </script>
+</html>
