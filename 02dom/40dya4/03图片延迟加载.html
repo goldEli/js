@@ -1,0 +1,67 @@
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        ul {
+            width: 1000px;
+            margin: 10px auto;
+        }
+
+        li {
+            width: 400px;
+            height: 250px;
+            overflow: hidden;
+            float: left;
+            margin: 30px;
+        }
+
+        li>img {
+            width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><img data-src="./images/lanrenzhijia1.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia2.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia3.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+        <li><img data-src="./images/lanrenzhijia4.jpg" src="" alt=""></li>
+    </ul>
+</body>
+<script>
+    /* 可以自动"观察"元素是否可见 */
+    var io = new IntersectionObserver(function (items) {
+        items.forEach(function (item) {
+            if (item.isIntersecting) {
+                var target = item.target;
+                console.log(target.getAttribute('data-src'))
+                setTimeout(() => {
+                    target.src = target.getAttribute('data-src');
+                }, 1000);
+            }
+
+        })
+    });
+    const imgs = document.querySelectorAll("img")
+    imgs.forEach(function (item, index) {
+        io.observe(item);
+    })
+</script>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .fa {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            padding: 10px 20px 30px 40px;
+            border: 1px solid red;
+            /* overflow: scroll; */
+        }
+        .son {
+            width: 50px;
+            height: 50px;
+            background-color: gray;
+        }
+        html {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="fa" class="fa">
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <h1>12312</h1>
+        <div id="son" class="son"></div>
+    </div>
+    <script>
+        const fa = document.getElementById("fa")
+        console.log(fa.offsetWidth)
+        console.log(fa.clientWidth)
+        const son = document.getElementById("son")
+        console.log(son.offsetTop)
+        console.log(son.offsetLeft)
+
+        console.log(fa.scrollWidth)
+    </script>
+</body>
+</html>
