@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      #header {
+        width: 100%;
+        height: 50px;
+        background: red;
+      }
+      .fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <div id="header"></div>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+    <p>kdsjfkljsdklfjd</p>
+  </body>
+  <script>
+    const header = document.getElementById("header")
+    //绑定滚动条移动事件
+    window.onscroll = function () {
+      var height =
+        document.body.scrollTop || document.documentElement.scrollTop; //解决浏览器兼容问题
+      if (height > 500) {
+        //小与500的时候，让它添加这个类
+        header.className = "fixed";
+      } else {
+        //否则就是空
+        header.className = "";
+      }
+    };
+  </script>
+</html>
