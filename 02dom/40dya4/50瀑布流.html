@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .box {
+        width: 1300px;
+        margin: 0 auto;
+      }
+      ul {
+        float: left;
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        border: 1px solid red;
+        margin: 10px;
+      }
+      li {
+        width: 380px;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+      <div style="clear: both;"></div>
+    </div>
+  </body>
+  <script>
+    var aUl = document.querySelectorAll("ul");
+    /*获取随机数*/
+    function getRandom(n, m) {
+      return Math.floor(Math.random() * (m - n + 1) + n);
+    }
+    //创建Li
+    function createLi() {
+      /*创建一个空白的li*/
+      var li = document.createElement("li");
+      /*给li加高度和颜色*/
+      li.style.height = getRandom(200, 500) + "px";
+      li.style.background =
+        "rgba(" +
+        getRandom(0, 256) +
+        "," +
+        getRandom(0, 256) +
+        "," +
+        getRandom(0, 256) +
+        ")";
+
+      return li;
+    }
+    /*一上来先来一部分内容*/
+    function create20Li() {
+      for (var i = 0; i < 20; i++) {
+        var li = createLi();
+
+        // li加入高度最矮的ul
+        /*根据数组的高度排序*/
+        let ul = aUl[0]
+        for (let i = 1; i < aUl.length; ++i) {
+            if (aUl[i].offsetHeight < ul.offsetHeight) {
+                ul = aUl[i]
+            }
+        }
+
+        ul.appendChild(li);
+      }
+    }
+    create20Li();
+
+    // window.onscroll = function () {
+    //   //滚动距离
+    //   var scrTop = document.documentElement.scrollTop;
+    //   //可视区窗口
+    //   var cliHeight = document.documentElement.clientHeight;
+    //   //body 高度
+    //   var bodyH = document.body.offsetHeight;
+    //   console.log(scrTop, cliHeight, bodyH);
+    //   if (scrTop + cliHeight >= bodyH - 100) {
+    //     create20Li();
+    //   }
+    // };
+  </script>
+</html>
