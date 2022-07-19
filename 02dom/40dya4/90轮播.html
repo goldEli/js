@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .box {
+        width: 200px;
+        border: 10px solid red;
+        overflow: hidden;
+        position: relative;
+        height: 125px;
+      }
+      .box-content {
+        width: 800px;
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: -200px;
+      }
+      .box-content > img {
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div id="boxContent" class="box-content">
+        <img src="./images/lanrenzhijia4.jpg" alt="" />
+        <img src="./images/lanrenzhijia1.jpg" alt="" />
+        <img src="./images/lanrenzhijia2.jpg" alt="" />
+        <img src="./images/lanrenzhijia3.jpg" alt="" />
+        <img src="./images/lanrenzhijia4.jpg" alt="" />
+        <img src="./images/lanrenzhijia1.jpg" alt="" />
+      </div>
+    </div>
+    <div>
+      <button id="leftBtn">left</button>
+      <button id="rightBtn">right</button>
+    </div>
+    <script>
+      const oLeftBtn = document.getElementById("leftBtn");
+      const oRightBtn = document.getElementById("rightBtn");
+      const oBoxContent = document.getElementById("boxContent");
+
+      // 当前是第几张
+      let currentImage = 0;
+      let imageWidth = 200;
+
+      oLeftBtn.onclick = function (e) {
+        ++currentImage;
+
+        console.log(oBoxContent.offsetLeft);
+        move(oBoxContent, 200, false);
+      };
+      oRightBtn.onclick = function (e) {
+        --currentImage;
+        console.log("right");
+        move(oBoxContent, 200, true);
+        
+      };
+
+      function move(obj, distance, toRight) {
+        let direction = -1;
+        if (toRight === true) {
+          direction = 1;
+        }
+        // 步长要为整数
+        const step = parseInt(distance / 80);
+        const timer = setInterval(() => {
+          distance -= step;
+          obj.style.left = obj.offsetLeft + step * direction + "px";
+          if (distance <= 0) {
+            clearInterval(timer);
+            console.log('%c [ currentImage ]-83', 'font-size:13px; background:pink; color:#bf2c9f;', currentImage)
+
+            if (currentImage === 4) {
+              obj.style.left = "-200px";
+              currentImage = 0;
+            }
+            if (currentImage === -1) {
+              obj.style.left = "-800px";
+              currentImage = 3;
+            }
+            return;
+          }
+        }, 1000 / 60);
+      }
+    </script>
+  </body>
+</html>
