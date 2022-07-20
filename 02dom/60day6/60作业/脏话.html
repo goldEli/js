@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function testTxt(txt) {
+        var pat =
+          /滚蛋|瓜娃子|傻逼|二货|二逼|王八蛋|龟儿子|仙人板板|不要脸|畜生|杂交|吃屎|狗日的|婊子|卵蛋|脑残/g; // 脏话匹配
+        var result = txt.replace(pat, "**"); // 情景一，直接将脏话过滤
+        return result;
+
+        // 情景二：如果有脏话，则要提示，不可使用
+        // return pat.test(txt);
+      }
+      var str = prompt("请输入你的内容");
+      alert(testTxt(str));
+    </script>
+  </body>
+</html>

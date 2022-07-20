@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="file" id="upload" />
+    <script>
+      var upload = document.getElementById("upload");
+
+      function checkExt(str) {
+        console.log(str);
+        var pat = /jpg|png|gif|jpeg/i;
+
+        var pos = str.lastIndexOf("."); // 图片.1.jpg
+        var ext = str.slice(pos + 1);
+        if (pat.test(ext)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      // 事件：在表单值发生改变的时候执行
+      upload.onchange = function () {
+        var val = upload.value;
+
+        var result = checkExt(val);
+        if (result) {
+          console.log("合法");
+        } else {
+          console.log("图片后缀不合符");
+        }
+      };
+    </script>
+  </body>
+</html>
