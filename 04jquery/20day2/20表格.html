@@ -28,13 +28,21 @@
         cursor: pointer;
       }
       #modifyModal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .modify-modal-content {
         top: 100px;
         padding: 20px;
         border: 1px solid red;
         position: absolute;
         left: 50%;
-        background-color: grey;
-        display: none;
+        background-color: #fff;
       }
     </style>
   </head>
@@ -53,18 +61,20 @@
         <tbody></tbody>
       </table>
       <div id="modifyModal">
-        <form action="">
-          <label>学号:<input type="text" id="stuId" disabled /></label>
-          <br />
-          <label>学生姓名:<input type="text" id="stuName" /></label>
-          <br />
-          <label>学生性别:<input type="text" id="stuSex" /></label>
-          <br />
-          <label>学生年龄:<input type="text" id="stuAge" /></label>
-          <br />
-          <button type="button" id="comfirmBtn">确定修改</button>
-          <button type="button" id="cancelBtn">取消</button>
-        </form>
+        <div class="modify-modal-content">
+          <form action="">
+            <label>学号:<input type="text" id="stuId" disabled /></label>
+            <br />
+            <label>学生姓名:<input type="text" id="stuName" /></label>
+            <br />
+            <label>学生性别:<input type="text" id="stuSex" /></label>
+            <br />
+            <label>学生年龄:<input type="text" id="stuAge" /></label>
+            <br />
+            <button type="button" id="comfirmBtn">确定修改</button>
+            <button type="button" id="cancelBtn">取消</button>
+          </form>
+        </div>
       </div>
       <div>
         <div id="pre">上一页</div>
@@ -108,15 +118,15 @@
       let maxPage;
 
       window.onload = function () {
-        show(0, pageSize-1, student);
+        show(0, pageSize, student);
       };
 
       //将对应的数据渲染到我们的页面上去
-      function show(start, end,drawData) {
+      function show(start, end, drawData) {
         // 1.渲染分页按钮
         // 1.1应该知道有多少页
         let pageNum = Math.ceil(drawData.length / pageSize);
-        $("#pages").empty()
+        $("#pages").empty();
         for (let i = 0; i < pageNum; i++) {
           //1.2 往pagediv里面添加 页码
           $("#pages").append(`<div>${i + 1}</div>`);
@@ -131,23 +141,20 @@
         $("#mainDiv>table>tbody").html("");
         //目的  往tbody里面添加tr和td  依据数据添加
         // 根据起始位置  获取对应的数据
-        for (let i = start; i <= end; i++) {
-          // console.log(tbodyData[i])
-          // 3.2.4 发现最后一页  渲染报错 需要加判断
-          if (tbodyData.length > i) {
-            $("#mainDiv>table>tbody").append(`
+        const data = tbodyData.slice(start, end);
+        for (let i = 0; i < data.length; i++) {
+          $("#mainDiv>table>tbody").append(`
                 <tr>
-                    <td>${tbodyData[i].id}</td>
-                    <td>${tbodyData[i].name}</td>
-                    <td>${tbodyData[i].sex}</td>
-                    <td>${tbodyData[i].age}</td>
+                    <td>${data[i].id}</td>
+                    <td>${data[i].name}</td>
+                    <td>${data[i].sex}</td>
+                    <td>${data[i].age}</td>
                     <td>
-                        <button data-id="${tbodyData[i].id}" class="modify-button">修改</button>
-                        <button data-id="${tbodyData[i].id}">删除</button>
+                        <button data-id="${data[i].id}" class="modify-button">修改</button>
+                        <button data-id="${data[i].id}">删除</button>
                     </td>
                 </tr>
             `);
-          }
         }
       }
       // 3.完成点击页码渲染页面
@@ -155,43 +162,38 @@
       $("#pages").on("click", "div", function () {
         // 3.2 渲染出对应页码的数据
         // 3.2.1获取点击的页码
-        let page = parseInt($(this).text());
+        nowPage = parseInt($(this).text());
+        console.log('%c [ nowPage ]-166', 'font-size:13px; background:pink; color:#bf2c9f;', nowPage)
         // 3.2.2根据页码 计算起始结束的位置
-        let start = (page - 1) * pageSize;
-        let end = page * pageSize - 1;
+        let start = (nowPage - 1) * pageSize;
+        let end = start + pageSize;
         show(start, end, student);
         //当做到地方的时候会发现    bom节点没有删除  是在后面添加的内容
         // 解决办法  需要修改showTbody函数 在添加之前  删除原有的dom节点
         // 4.1.1的执行
-        nowPage = parseInt($(this).text());
       });
 
       // 4 解决上一页 下一页的问题
       $("#pre").click(function () {
-        // 渲染当前页的前一页的数据
-        // 4.1   当知道当前页  理所应当上一页是多少   当前页--
-        // 4.1.1 如何知道当前页呢 点击页码的时候就应该将点击的页码 = 当前页
-        // 4.1.2  发现问题  在上一页和下一页的时候也应该跟新当前页
-        let page;
-        nowPage > 1 ? (page = nowPage - 1) : (page = nowPage);
-        let start = (page - 1) * pageSize;
-        let end = page * pageSize - 1;
+        if (nowPage === 1) {
+          return;
+        }
+        nowPage -= 1;
+        let start = (nowPage - 1) * pageSize;
+        let end = start + pageSize;
+
         show(start, end, student);
         //  当以上代码完成说明dom渲染完毕 说明当前是这个函数的page了所以需要将nowpage跟新
-        nowPage = page;
       });
 
       $("#next").click(function () {
-        // 渲染当前页的下一页的数据
-        // 4.1   当知道当前页  理所应当下一页是多少   当前页++
-        let page;
-        // 做到这里发现需要 最大页数
-        nowPage < maxPage ? (page = nowPage + 1) : (page = nowPage);
-        let start = (page - 1) * pageSize;
-        let end = page * pageSize - 1;
+        if (nowPage === maxPage) {
+          return
+        }
+        nowPage += 1;
+        let start = (nowPage - 1) * pageSize;
+        let end = start + pageSize;
         show(start, end, student);
-        //  当以上代码完成说明dom渲染完毕 说明当前是这个函数的page了所以需要将nowpage跟新
-        nowPage = page;
       });
 
       // 5.完成修改按钮
