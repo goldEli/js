@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+     body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #main {
+      width: 400px;
+      height: 600px;
+      position: absolute;
+      margin-left: 200px;
+      border: 1px solid red;
+      background-image: url("images/background_1.png");
+      background-position: center center;
+      animation: up 5s linear infinite;
+      overflow: hidden;
+    }
+
+    #titleScore {
+      position: absolute;
+      left: 0px;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    #title {
+      text-align: center;
+      margin-top: 150px;
+    }
+
+    #btn1,
+    #btn2 {
+      width: 150px;
+      height: 40px;
+      line-height: 40px;
+      background-color: #bcbcbc;
+      border-radius: 15px;
+      color: deeppink;
+      cursor: pointer;
+      text-align: center;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="titleScore">
+    <div>总分：<span id="fenshu">0</span></div>
+    <div>杀敌：<span id="count">0</span></div>
+  </div>
+  <div id="main">
+
+    <div id="title">
+      <h1>一起来玩游戏吧</h1>
+    </div>
+    <div id="btn1" onclick="startGame()">开始游戏</div>
+    <div id="btn2">推出游戏</div>
+  </div>
+</body>
+
+<script>
+
+  let mainDiv = document.getElementById('main')
+  let fenshu = document.getElementById('fenshu')
+  let count = document.getElementById('count')
+  let enemyList = [] 
+  let bulletList = [] 
+  let play
+  let zongfen = 0
+  let shadi = 0
+  function startGame(){
+    let title = document.getElementById('title')
+    let btn1 = document.getElementById('btn1')
+    let btn2 = document.getElementById('btn2')
+    title.style.display = 'none'
+    btn1.style.display = 'none'
+    btn2.style.display = 'none'
+    setInterval(() => {
+      createEnemyPlane()
+    }, 1000);
+    setInterval(()=>{
+      enemyMove()
+    },50)
+    setInterval(()=>{
+      playMove()
+    },50)
+    setInterval(()=>{
+      bulletMove()
+    },50)
+    setInterval(()=>{
+      crashCheck()
+    },15)
+    createPlay()
+    eventKey()
+  }
+  function createEnemyPlane(){
+    let enemyPlane = new EnemyPlane('./images/enemy1_fly_1.png',parseInt(Math.random()*366),0,3,parseInt(Math.random()*10))
+    enemyList.push(enemyPlane)
+  }
+  function enemyMove(){
+    for(let i=0;i<enemyList.length;i++){
+      if(enemyList[i].isDead==true){
+        enemyList[i].deadTime--
+        if(enemyList[i].deadTime==0){
+
+          zongfen += enemyList[i].fenshu
+          shadi++
+          count.innerText = shadi
+          fenshu.innerText = zongfen
+          mainDiv.removeChild(enemyList[i].imgNode)
+          enemyList.splice(i,1)
+        }
+      }else{
+        if(parseInt(enemyList[i].imgNode.style.top)<=600){
+          enemyList[i].move()
+        }else{
+          mainDiv.removeChild(enemyList[i].imgNode)
+          enemyList.splice(i,1)
+        }
+      }
+    }
+  }
+  function EnemyPlane(imgSrc,x,y,speed,blood){
+    this.imgNode = document.createElement('img')
+    this.imgSrc = imgSrc
+    this.x = x
+    this.y = y
+    this.fenshu = 10
+    this.isDead = false
+    this.speed = speed
+    this.blood= blood
+    this.deadTime = 10
+    this.move = function(){
+      this.imgNode.style.top = parseInt(this.imgNode.style.top) + this.speed +'px'
+    }
+    this.init = function(){
+      this.imgNode.src = this.imgSrc
+      this.imgNode.style.position='absolute'
+      this.imgNode.style.left = this.x + 'px'
+      this.imgNode.style.top = this.y + 'px'
+      mainDiv.appendChild(this.imgNode)
+  
+    }
+    this.init()
+  }
+  function PlayPlane(imgSrc,x,y,speed,blood){
+    this.imgNode = document.createElement('img')
+    this.imgSrc = imgSrc
+    this.x = x
+    this.y = y
+    this.leftState = false
+    this.rightState = false
+    this.topState = false
+    this.bottomState = false
+    this.speed = speed
+    this.blood = blood
+    this.shoot = function(){
+      // 在这里实例化子弹对象 这里的初始位置应该是飞机的位置 play.x和play.y是飞机的初始位置
+      // 而我们要实时的位置 其实是图片的top和left
+      let bullteX = parseInt(this.imgNode.style.left) + 31
+      let bulltey = parseInt(this.imgNode.style.top) -20
+      let bulletPlane = new Bullet('./images/bullet1.png',bullteX,bulltey,10,1)
+      bulletList.push(bulletPlane)
+    }
+    this.leftMove = function(){
+      if(parseInt(this.imgNode.style.left)>=0){
+        this.imgNode.style.left = parseInt(this.imgNode.style.left) - this.speed +'px'
+      }
+    }
+    this.rightMove = function(){
+      this.imgNode.style.left = parseInt(this.imgNode.style.left) + this.speed +'px'
+    }
+    this.topMove = function(){
+      this.imgNode.style.top = parseInt(this.imgNode.style.top) - this.speed +'px'
+    }
+    this.bottomMove = function(){
+      this.imgNode.style.top = parseInt(this.imgNode.style.top) + this.speed +'px'
+    }
+    this.init = function(){
+      this.imgNode.src = this.imgSrc
+      this.imgNode.style.position='absolute'
+      this.imgNode.style.left = this.x + 'px'
+      this.imgNode.style.top = this.y + 'px'
+      mainDiv.appendChild(this.imgNode)
+    }
+    this.init()
+  }
+  function createPlay(){
+    play = new PlayPlane('./images/myplane.gif',167,500,10,5)
+    console.log(play)
+  }
+  function eventKey(){
+    document.onkeydown = function(e){
+      if(e.key=='a'){
+        play.leftState = true
+      }
+      if(e.key=='s'){
+        play.bottomState = true
+      }
+      if(e.key=='d'){
+        play.rightState = true
+      }
+      if(e.key=='w'){
+        play.topState = true
+      }
+      if(e.key=='j'){
+        // 飞机发射子弹
+        play.shoot()
+      }
+      if(e.key=='k'){
+        for(let i=0;i<enemyList.length;i++){
+          enemyList[i].isDead = true
+        }
+      }
+    }
+    document.onkeyup = function(e){
+      if(e.key=='a'){
+        play.leftState = false
+      }
+      if(e.key=='s'){
+        play.bottomState = false
+      }
+      if(e.key=='d'){
+        play.rightState = false
+      }
+      if(e.key=='w'){
+        play.topState = false
+      }
+    }
+  }
+  function playMove(){
+    if(play.leftState){
+      play.leftMove()
+    }
+    if(play.rightState){
+      play.rightMove()
+    }
+    if(play.topState){
+      play.topMove()
+    }
+    if(play.bottomState){
+      play.bottomMove()
+    }
+  }
+  // 第一天的内容: 每个函数的意义
+  //    startGame函数  开始游戏
+  //    createEnemyPlane  创造地方小飞机
+  //    enemyMove      调用每架敌方小飞机移动的方法
+  //    EnemyPlane  敌方小飞机构造器(构造函数)
+  //    PlayPlane   玩家飞机构造器(构造函数)
+  //    createPlay  创造玩家飞机的方法
+  //    eventKey    游戏开始绑定键盘事件
+
+  // 第一天的业务流程顺序  游戏开始调用startGame函数  
+  // 该函数内每隔1秒调用createEnemyPlane的方法  解决问题 不停的创建小飞机 并将飞机装入数组 原因在移动的时候需要操作每一架飞机
+  // 该函数内每隔50毫秒调用enemyMove的方法  解决问题  操作不停的操作没一架飞机的移动方法  所以飞机放入数组  遍历数组  全局变量
+  // 该函数内调用eventKeyDown方法  解决问题  让键盘有按下事件  并调用玩家飞机向各方向移动
+
+  // 当游戏做到这步 发现玩家移动 会卡一下   卡一下的原因是因为键盘的滞粘键  
+  // 如何解决这个问题 可以给一个键盘按下的状态  飞机有停止和移动两个状态   那么我们可以给飞机一个布尔值  当布尔值为true的是他应该调用移动的方法
+  // 如果布尔值为false 则不调用
+  // 那这个布尔值 什么时候发生改变呢??  当键盘被按下的时候 改装态为true 当键盘抬起的时候  改装态为false
+  // 所以 这时我应该修改玩家飞机构造器 玩家飞机还应该有4个装态 向左走的状态 向右走的状态  向下   向上...
+
+  // ---------------------解决完了丝滑移动之后我们要做什么
+  // 发射子弹的功能 设么叫做发射子弹  1.创建子弹   2.子弹从下往上移动
+  // 创建子弹和创建飞机  有没有中文都差不多  只是创造的东西不一样  所以 子弹也应该有一个构造器
+  function Bullet(imgSrc,x,y,speed,weili){
+    this.imgNode = document.createElement('img')
+    this.imgSrc = imgSrc
+    this.x = x
+    this.y = y
+    this.weili = weili
+    this.speed = speed
+    this.isDead = false
+    this.move = function(){
+      this.imgNode.style.top = parseInt(this.imgNode.style.top) - this.speed+'px'
+    }
+    this.init = function(){
+      this.imgNode.src = this.imgSrc
+      this.imgNode.style.position = 'absolute'
+      this.imgNode.style.left = this.x+'px'
+      this.imgNode.style.top = this.y+'px'
+      mainDiv.appendChild(this.imgNode)
+    }
+    this.init()
+  }
+
+  // 这时子弹的构造器已经完毕  接下来做什么 思考:什么时候new 子弹构造器
+  // 两方意见   一波人说  我们应该键盘J按下  我应该 new一个子弹  另一部分人  飞机应该发射子弹
+  // 答案 应该调用玩家飞机的发射子弹的方法  所以要去修改玩家飞机构造器  添加一个shoot的方法
+  // 当子弹正常出现 后   处理子弹移动的功能  思考  子弹移动和敌方飞机移动其实是一个原理  所以我需要一个数组装所有的子弹
+  // 创造一个子弹移动的方法  并一直调用他  该方法里遍历子弹数组 调用子弹的move方法
+  function bulletMove(){
+    for(let i = 0;i<bulletList.length;i++){
+      if(parseInt(bulletList[i].imgNode.style.top)>0&&bulletList[i].isDead==false){
+        bulletList[i].move()
+      }else{
+        mainDiv.removeChild(bulletList[i].imgNode)
+        bulletList.splice(i,1)
+      }
+    }
+  }
+
+  // 子弹发射 子弹移动完毕  接下来解决 子弹和敌方飞机发生碰撞
+  // 现在我们仅仅是要知道 发生碰撞!!切记切记  什么是发生碰撞呢  我是不是要判断每一个架飞机每一个子弹是否发生碰撞
+  // 什么时候判断呢??
+  function crashCheck(){
+    // 这个方法专门用来判断是否发生碰撞  这个函数什么时候执行呢? 这个函数也需要
+    // setInterval去调用他  游戏开始时候就要判断
+    // 判断后 发现  删除节点和删除对象的时候会报错 为什么会报错呢?? crashcheck这个函数每个15毫秒就会执行一次
+    // move函数每个50毫秒就会执行一次 两个方法在操作同一个数组同一个对象  有可能就会发生 这边删除 但是那边还在调用move()
+    // 所以就有可能发生冲突  从而报错
+    for(let i=0;i<enemyList.length;i++){
+      for(let j=0;j<bulletList.length;j++){
+        let plLeft = parseInt(enemyList[i].imgNode.style.left)
+        let plTop = parseInt(enemyList[i].imgNode.style.top)
+        let btLeft = parseInt(bulletList[j].imgNode.style.left)
+        let btTop = parseInt(bulletList[j].imgNode.style.top)
+        if(btLeft+6>=plLeft&&plLeft+34>=btLeft&&btTop<=plTop+24&&btTop+14>=plTop&&enemyList[i].isDead==false){
+          // 只是告诉子弹和飞机你们碰撞了 你们已经死亡了  
+          enemyList[i].blood-=1
+          if(enemyList[i].blood<=0){
+            enemyList[i].imgNode.src = './images/小飞机爆炸.gif'
+           
+            enemyList[i].isDead = true
+          }
+          bulletList[j].isDead = true
+        }
+      }
+    }
+  }
+
+</script>
+</html>

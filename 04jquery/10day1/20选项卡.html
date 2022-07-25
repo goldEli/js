@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .clear:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      ul {
+        margin: 50px;
+        position: relative;
+      }
+      li {
+        list-style: none;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        margin: 0 1px;
+        position: absolute;
+        bottom: 0;
+        background-color: gainsboro;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s linear;
+      }
+      ul li:nth-child(2) {
+        left: 130px;
+      }
+      ul li:nth-child(3) {
+        left: 235px;
+      }
+      ul li:nth-child(4) {
+        left: 295px;
+      }
+      ul li:nth-child(5) {
+        left: 398px;
+      }
+      .wn-tabs {
+        width: 900px;
+        border: 1px solid grey;
+        position: absolute;
+        left: 0;
+        display: none;
+      }
+      .change {
+        background-color: #70b693;
+        color: white;
+        height: 40px;
+        line-height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="myUl" class="clear">
+      <li id="mylino1" onclick="tabClick(this,0)">Long Tab Name</li>
+      <li onclick="tabClick(this,1)">Another Tab</li>
+      <li onclick="tabClick(this,2)">Tab 3</li>
+      <li onclick="tabClick(this,3)">Another tab</li>
+      <li onclick="tabClick(this,4)">Ancther Tab</li>
+    </ul>
+    <div class="wn-tabs">
+      <h3>Content 1</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <div class="wn-tabs">
+      <h3>Content 2</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <div class="wn-tabs">
+      <h3>Content 3</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <div class="wn-tabs">
+      <h3>Content 4</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <div class="wn-tabs">
+      <h3>Content 5</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.js"
+      integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function tabClick(obj, num) {
+        $(obj).addClass("change").siblings().removeClass("change");
+        $(".wn-tabs")
+          .eq(num)
+          .css({ display: "block" })
+          .siblings(".wn-tabs")
+          .css({ display: "none" });
+      }
+    </script>
+  </body>
+</html>

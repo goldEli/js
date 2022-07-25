@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box">
+      <div id="son">son</div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.js"
+      integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+        const oBox = document.getElementById("box")
+        $("#box").append("<p>123</p>")
+
+        $('<p>新节点</p>').appendTo(oBox)
+        $("#box").prepend("<p>prepend</p>")
+        $("#box").after("<p>after</p>")
+        $("#box").before("<p>before</p>")
+        $("<p>insertBefore</p>").insertBefore(oBox)
+
+        // $("#box").remove()
+        // $("#son").unwrap()
+        // $("#son").wrap("<div>father</div>")
+        $("#box").replaceWith("<div>father</div>")
+
+
+    </script>
+  </body>
+</html>

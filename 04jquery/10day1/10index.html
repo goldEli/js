@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.js"
+      integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <p>12312</p>
+    <p>12312</p>
+    <p>12312</p>
+    <p>12312</p>
+    <button id="btn">点击</button>
+    <script>
+      /* 
+            主要是为了简化我们的操作 封装了很多方法 
+            操作dom
+        */
+      //    const oP = document.querySelector("p")
+      //    oP.style.color = "red"
+    //   $("p").css("color", "red")
+    //   console.log($("p").css("color"))
+    // 多个样式
+    // $("p").css({
+    //     color: "red",
+    //     backgroundColor: "pink"
+    // })
+    // $("#btn").click(function() {
+    //     alert(123)
+    // })
+    $("p").eq(0).css({
+        lineHeight: "50px"
+    }).css({
+        backgroundColor: "red"
+    })
+    </script>
+  </body>
+</html>
