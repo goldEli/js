@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      td,
+      th {
+        padding: 10px 20px;
+        text-align: center;
+      }
+      #pre,
+      #next,
+      #pages {
+        float: left;
+      }
+      #pages div {
+        float: left;
+        background-color: pink;
+        margin: 0 10px;
+        padding: 10px;
+        cursor: pointer;
+      }
+      #pre,
+      #next {
+        padding: 10px;
+        background-color: pink;
+        cursor: pointer;
+      }
+      #xiugaikuang {
+        top: 100px;
+        padding: 20px;
+        border: 1px solid red;
+        position: absolute;
+        left: 50%;
+        background-color: grey;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mainDiv">
+      <table border="1">
+        <thead>
+          <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="xiugaikuang">
+        <form action="">
+          <label>学号:<input type="text" id="stuId" disabled /></label>
+          <br />
+          <label>学生姓名:<input type="text" id="stuName" /></label>
+          <br />
+          <label>学生性别:<input type="text" id="stuSex" /></label>
+          <br />
+          <label>学生年龄:<input type="text" id="stuAge" /></label>
+          <br />
+          <button type="button" id="querenxiugai">确定修改</button>
+          <button type="button" id="quxiao">取消</button>
+        </form>
+      </div>
+      <div>
+        <div id="pre">上一页</div>
+        <div id="pages"></div>
+        <div id="next">下一页</div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.js"
+      integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //模拟假数据
+      let student = [
+        { id: 1, name: "上三", sex: "女", age: 18 },
+        { id: 2, name: "王五", sex: "女", age: 18 },
+        { id: 3, name: "哈哈", sex: "女", age: 18 },
+        { id: 4, name: "赵四", sex: "女", age: 18 },
+        { id: 5, name: "赵六", sex: "女", age: 18 },
+        { id: 6, name: "王一", sex: "女", age: 18 },
+        { id: 7, name: "说的", sex: "女", age: 18 },
+        { id: 8, name: "赵六", sex: "女", age: 18 },
+        { id: 9, name: "赵六", sex: "女", age: 18 },
+        { id: 10, name: "说的", sex: "女", age: 18 },
+        { id: 11, name: "说的", sex: "女", age: 18 },
+        { id: 12, name: "赵六", sex: "女", age: 18 },
+        { id: 13, name: "家人", sex: "女", age: 18 },
+        { id: 14, name: "家人", sex: "女", age: 18 },
+        { id: 15, name: "说的", sex: "女", age: 18 },
+        { id: 16, name: "上三", sex: "女", age: 18 },
+        { id: 17, name: "说的", sex: "女", age: 18 },
+        { id: 18, name: "上三", sex: "女", age: 18 },
+        { id: 19, name: "赵六", sex: "女", age: 18 },
+        { id: 20, name: "家人", sex: "女", age: 18 },
+        { id: 21, name: "赵六", sex: "女", age: 18 },
+        { id: 22, name: "上三", sex: "女", age: 18 },
+      ];
+      let nowPage = 1;
+      let maxPage;
+
+      window.onload = function () {
+        show(student);
+      };
+
+      //将对应的数据渲染到我们的页面上去
+      function show(drawData) {
+        // 1.渲染分页按钮
+        // 1.1应该知道有多少页
+        let pageNum = Math.ceil(drawData.length / 5);
+        for (let i = 0; i < pageNum; i++) {
+          //1.2 往pagediv里面添加 页码
+          $("#pages").append(`<div>${i + 1}</div>`);
+        }
+        // 4.1.1 下一页最大页数的代码
+        maxPage = pageNum;
+        // 2.渲染tbody   // 调用渲染表格的方法
+        showTbody(0, 4, drawData);
+      }
+      function showTbody(start, end, tbodyData) {
+        // 3.2.3  删除原有的dom节点
+        $("#mainDiv>table>tbody").html("");
+        //目的  往tbody里面添加tr和td  依据数据添加
+        // 根据起始位置  获取对应的数据
+        for (let i = start; i <= end; i++) {
+          // console.log(tbodyData[i])
+          // 3.2.4 发现最后一页  渲染报错 需要加判断
+          if (tbodyData.length > i) {
+            $("#mainDiv>table>tbody").append(`
+                <tr>
+                    <td>${tbodyData[i].id}</td>
+                    <td>${tbodyData[i].name}</td>
+                    <td>${tbodyData[i].sex}</td>
+                    <td>${tbodyData[i].age}</td>
+                    <td>
+                        <button data-id="${tbodyData[i].id}" class="xiugai">修改</button>
+                        <button>删除</button>
+                    </td>
+                </tr>
+            `);
+          }
+        }
+      }
+      // 3.完成点击页码渲染页面
+      // 3.1给页码绑定数据
+      $("#pages").on("click", "div", function () {
+        // 3.2 渲染出对应页码的数据
+        // 3.2.1获取点击的页码
+        let page = parseInt($(this).text());
+        // 3.2.2根据页码 计算起始结束的位置
+        let start = (page - 1) * 5;
+        let end = page * 5 - 1;
+        showTbody(start, end, student);
+        //当做到地方的时候会发现    bom节点没有删除  是在后面添加的内容
+        // 解决办法  需要修改showTbody函数 在添加之前  删除原有的dom节点
+        // 4.1.1的执行
+        nowPage = parseInt($(this).text());
+      });
+
+      // 4 解决上一页 下一页的问题
+      $("#pre").click(function () {
+        // 渲染当前页的前一页的数据
+        // 4.1   当知道当前页  理所应当上一页是多少   当前页--
+        // 4.1.1 如何知道当前页呢 点击页码的时候就应该将点击的页码 = 当前页
+        // 4.1.2  发现问题  在上一页和下一页的时候也应该跟新当前页
+        let page;
+        nowPage > 1 ? (page = nowPage - 1) : (page = nowPage);
+        let start = (page - 1) * 5;
+        let end = page * 5 - 1;
+        showTbody(start, end, student);
+        //  当以上代码完成说明dom渲染完毕 说明当前是这个函数的page了所以需要将nowpage跟新
+        nowPage = page;
+      });
+
+      $("#next").click(function () {
+        // 渲染当前页的下一页的数据
+        // 4.1   当知道当前页  理所应当下一页是多少   当前页++
+        let page;
+        // 做到这里发现需要 最大页数
+        nowPage < maxPage ? (page = nowPage + 1) : (page = nowPage);
+        let start = (page - 1) * 5;
+        let end = page * 5 - 1;
+        showTbody(start, end, student);
+        //  当以上代码完成说明dom渲染完毕 说明当前是这个函数的page了所以需要将nowpage跟新
+        nowPage = page;
+      });
+
+      // 5.完成修改按钮
+      // 5.1给每个修改按钮 绑定事件
+      $("tbody").on("click", ".xiugai", function (e) {
+        // 5.2 弹出修改框 显示xiugaikuang
+        $("#xiugaikuang").css({ display: "block" });
+        // 5.3 将当前这一行的数据 添加到 修改框所对应的每一项当中去
+        // 5.3.1我要知道点击的这一行的学生id  根据这个id找到这个学生对象  将对象的值给input
+        let stuId = $(this).attr("data-id");
+        // 找到对应的学生对象  方法一
+        // for(let i=0;i<student.length;i++){
+        //     if(student[i].id==stuId){
+        //         $('#stuId').val(student[i].id)
+        //         $('#stuName').val(student[i].name)
+        //         $('#stuSex').val(student[i].sex)
+        //         $('#stuAge').val(student[i].age)
+        //     }
+        // }
+        // 方法二 filter筛选器
+        let mydata = student.filter((item) => {
+          return item.id == stuId;
+        });
+        let data = mydata[0];
+        $("#stuId").val(data.id);
+        $("#stuName").val(data.name);
+        $("#stuSex").val(data.sex);
+        $("#stuAge").val(data.age);
+      });
+      $("#querenxiugai").click(function () {
+        // 6.1获取将输入框的内容
+        let obj = {
+          id: $("#stuId").val(),
+          name: $("#stuName").val(),
+          sex: $("#stuSex").val(),
+          age: $("#stuAge").val(),
+        };
+        // 6.2将数组(数据源)的数据进行替换
+        for (let i = 0; i < student.length; i++) {
+          if (student[i].id == obj.id) {
+            student.splice(i, 1, obj);
+          }
+        }
+        // 6.3将修改完的input 清空
+        $("#stuId").val(""),
+          $("#stuName").val(""),
+          $("#stuSex").val(""),
+          $("#stuAge").val("");
+        // 6.3 刷新表格  刷新当前nowpage的表格
+        let start = (nowPage - 1) * 5;
+        let end = nowPage * 5 - 1;
+        showTbody(start, end, student);
+        $("#xiugaikuang").css({ display: "none" });
+      });
+      $("#quxiao").click(function () {
+        $("#stuId").val(""),
+          $("#stuName").val(""),
+          $("#stuSex").val(""),
+          $("#stuAge").val("");
+        $("#xiugaikuang").css({ display: "none" });
+      });
+    </script>
+  </body>
+</html>

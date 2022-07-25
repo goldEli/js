@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box">
+      <div class="divs">divs1</div>
+      <div class="divs">divs2</div>
+    </div>
+   
+    <button id="btn">click</butt>
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.js"
+      integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // $(".divs").on("click", function () {
+      //   console.log(12312);
+      // });
+
+      // 事件委托
+      $("#box").on("click", ".divs", function(e) {
+        console.log(123)
+      })
+
+      $("#btn").on("click", function () {
+        $("#box").append('<div class="divs">divs3</div>');
+      });
+    </script>
+  </body>
+</html>
