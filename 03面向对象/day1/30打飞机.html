@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>打飞机</title>
+  </head>
+  <body>
+    <!-- 
+      
+     -->
+    <div id="game">
+      <div id="gameStart">
+        <div id="startBtn">开始游戏</div>
+      </div>
+
+      <div id="gameEnter">
+        <div id="myPlane">
+          <img src="./images/myplane.gif" />
+        </div>
+        <div id="bullets">
+          <img class="bullet" src="./images/bullet1.png" />
+        </div>
+        <div id="enemys"></div>
+      </div>
+    </div>
+    <script>
+      // 获取元素
+      function $(idName) {
+        return document.getElementById(idName);
+      }
+      // 获取元素属性值
+      function getStyleValue(element, attr) {
+        const value = window.getComputedStyle(element)[attr]; // "19.7px" => 19.7
+        return parseFloat(value);
+      }
+
+      const game = $("game");
+      const gameStart = $("gameStart");
+      const startBtn = $("startBtn");
+
+      const gameEnter = $("gameEnter");
+      const myPlane = $("myPlane");
+      const bullets = $("bullets");
+      const enemys = $("enemys");
+
+      // 游戏界面的宽高
+      const gameWidth = getStyleValue(game, "width");
+      const gameHeight = getStyleValue(game, "height");
+      // 游戏界面的上 左边距
+      const gameMarginLeft = getStyleValue(game, "margin-left");
+      const gameMarginTop = getStyleValue(game, "margin-top");
+      // 己方飞机的宽高
+      const myPlaneWidth = getStyleValue(myPlane, "width");
+      const myPlaneHeight = getStyleValue(myPlane, "height");
+
+      // 游戏状态
+      let gameStatus = false;
+
+      // 开始游戏
+      startBtn.onclick = function () {
+        gameStart.style.display = "none";
+        gameEnter.style.display = "block";
+
+        // 给当前文档添加键盘事件
+        document.onkeyup = function (event) {
+          // 空格键 32
+          if (event.keyCode === 32) {
+            if (gameStatus === false) {
+              document.onmousemove = myPlaneMove;
+            } else {
+              document.onmousemove = null;
+            }
+            gameStatus = !gameStatus;
+          }
+        };
+
+        // 乙方飞机移动
+        function myPlaneMove(event) {
+          // 获取鼠标的位置
+          const mouseX = event.pageX;
+          const mouseY = event.pageY;
+
+          // 计算飞机的位置
+          let myPlaneLeft = mouseX - gameMarginLeft - myPlaneWidth / 2;
+          let myPlaneTop = mouseY - gameMarginTop - myPlaneHeight / 2;
+
+          // 修改飞机的位置
+
+          // 不能超出游戏界面
+          // const maxLeft = gameMarginLeft + myPlaneWidth / 2
+          // const maxTop = gameMarginTop + myPlaneHeight / 2
+
+          // if (myPlaneLeft <= maxLeft) {
+          //   return
+          // }
+          console.log("myPlaneLeft", myPlaneLeft);
+          console.log("myPlaneTop", myPlaneTop);
+          if (myPlaneLeft <= 0) {
+            myPlaneLeft = 0;
+          }
+          if (myPlaneTop <= 0) {
+            myPlaneTop = 0;
+          }
+          if (myPlaneLeft >= gameWidth - myPlaneWidth) {
+            myPlaneLeft = gameWidth - myPlaneWidth;
+          }
+          if (myPlaneTop >= gameHeight - myPlaneHeight) {
+            myPlaneTop = gameHeight - myPlaneHeight;
+          }
+
+          myPlane.style.left = myPlaneLeft + "px";
+          myPlane.style.top = myPlaneTop + "px";
+        }
+      };
+    </script>
+  </body>
+</html>
