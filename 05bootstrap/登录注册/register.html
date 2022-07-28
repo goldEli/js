@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>注册</title>
+    <style>
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>注册</h1>
+      <div>
+        <label>账号</label>
+        <input id="user" type="user" />
+        <span
+          class="error"
+          id="userErrorMessage"
+          placeholder="请输入手机号"
+        ></span>
+      </div>
+      <div>
+        <label>密码</label>
+        <input id="password" type="password" />
+        <span class="error" id="passwordErrorMessage"></span>
+      </div>
+      <div>
+        <button id="registerBtn">注册</button>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.js"
+      integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const user = $("#user");
+      const password = $("#password");
+      const registerBtn = $("#registerBtn");
+      const userErrorMessage = $("#userErrorMessage");
+      const passwordErrorMessage = $("#passwordErrorMessage");
+
+      function isMobile(mobile) {
+        return /^1[3-9]\d{9}$/.test(mobile);
+      }
+
+      registerBtn.click(function () {
+        const userValue = user.val();
+        console.log(
+          "%c [ userValue ]-45",
+          "font-size:13px; background:pink; color:#bf2c9f;",
+          userValue
+        );
+        const passwordValue = password.val();
+
+        if (!userValue) {
+          userErrorMessage.text("用户不能为空");
+          return;
+        }
+
+        if (!isMobile(userValue)) {
+          userErrorMessage.text("请输入正确的手机号");
+          return;
+        }
+
+        if (!passwordValue) {
+          passwordErrorMessage.text("密码不能为空");
+          return;
+        }
+
+        // 清空错误信息
+        userErrorMessage.text("");
+        passwordErrorMessage.text("");
+
+        // 用户输入正确
+        // 写入 localstorage
+        localStorage.setItem(userValue, passwordValue)
+
+        window.open("./login.html")
+      });
+    </script>
+  </body>
+</html>
