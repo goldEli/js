@@ -128,8 +128,7 @@
       function shot() {
         shotTimer = setInterval(function () {
           // createBullet();
-          const bullet = new Bullet();
-          bullet.init();
+          new Bullet();
         }, 100);
       }
 
@@ -147,6 +146,7 @@
           this.create();
           this.move();
         };
+        this.init();
 
         this.create = function () {
           this.img.src = "./images/bullet1.png";
