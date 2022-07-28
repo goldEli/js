@@ -6,7 +6,9 @@
 #game {
     width: 320px;
     height: 568px;
-    margin: auto;
+    overflow: hidden;
+    /* margin: 0 auto; */
+    margin-left: 200px;
 }
 
 #gameStart {
