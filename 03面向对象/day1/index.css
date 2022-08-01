@@ -52,19 +52,17 @@
     bottom: 0;
 }
 
-#bullets {
+#bullets,#enemys {
     width: 100%;
     height: 100%;
-    position: relative;
-}
-
-#enemys {
-    width: 100%;
-    height: 100%;
+    position: absolute;
 }
 
 .bullet {
     width: 6px;
     height: 14px;
+    position: absolute;
+}
+.enemy {
     position: absolute;
 }

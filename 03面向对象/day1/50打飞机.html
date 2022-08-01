@@ -61,7 +61,27 @@
       let gameStatus = false;
       // 创建子弹的定时器
       let createBulletsTimer = null;
-    
+      // 创建敌机的定时器
+      let createEnemysTimer = null;
+
+      // 敌机数据
+      const enemysData = {
+        enemy1: {
+          imgUrl: "./images/enemy1.png",
+          width: 34,
+          height: 24,
+        },
+        enemy2: {
+          imgUrl: "./images/enemy2.png",
+          width: 46,
+          height: 60,
+        },
+        enemy3: {
+          imgUrl: "./images/enemy3.png",
+          width: 110,
+          height: 164,
+        },
+      };
 
       // 开始游戏
       startBtn.onclick = function () {
@@ -77,10 +97,14 @@
               document.onmousemove = myPlaneMove;
               // 定制创建子弹
               createBullets();
+              // 定时创建敌机
+              createEnemys();
             } else {
               document.onmousemove = null;
               // 停止创建子弹
               stopCreateBullets();
+              // 停止创建敌机
+              stopCreateEnemys();
             }
             gameStatus = !gameStatus;
           }
@@ -105,8 +129,8 @@
           // if (myPlaneLeft <= maxLeft) {
           //   return
           // }
-          console.log("myPlaneLeft", myPlaneLeft);
-          console.log("myPlaneTop", myPlaneTop);
+          // console.log("myPlaneLeft", myPlaneLeft);
+          // console.log("myPlaneTop", myPlaneTop);
           if (myPlaneLeft <= 0) {
             myPlaneLeft = 0;
           }
@@ -133,7 +157,7 @@
         }, 100);
       }
 
-      // 停止发射子弹
+      // 停止创建子弹
       function stopCreateBullets() {
         clearInterval(createBulletsTimer);
       }
@@ -183,12 +207,98 @@
           }, 1000 / 60);
         };
 
-        // 创建对象时执行
         this.init();
-
       }
 
-      
+      // 定时创建敌机
+      function createEnemys() {
+        createEnemysTimer = setInterval(function () {
+          // 随机获取某一种敌机数据
+          const enemyData = getRandomEnemyData();
+          // new
+          new Enemy(enemyData.imgUrl, enemyData.width, enemyData.height);
+        }, 1000);
+      }
+
+      // 随机获取某一种敌机数据
+      function getRandomEnemyData() {
+        // 0.75 0.2 0.05
+        // 75 20 5 => 25 4 1
+        const allData = [];
+        for (let i = 0; i < 25; ++i) {
+          allData.push(enemysData.enemy1);
+        }
+        for (let i = 0; i < 4; ++i) {
+          allData.push(enemysData.enemy2);
+        }
+        allData.push(enemysData.enemy3);
+
+        // 0-29
+        const randomNum = parseInt(Math.random() * 30);
+        console.log(
+          "%c [ randomNum ]-239",
+          "font-size:13px; background:pink; color:#bf2c9f;",
+          randomNum
+        );
+
+        return allData[randomNum];
+      }
+
+      // 停止创建敌机
+      function stopCreateEnemys() {
+        clearInterval(createEnemysTimer);
+      }
+
+      // 敌机对象
+      function Enemy(imgUrl, width, height) {
+        // 运动定时器
+        this.timer = null
+        this.imgUrl = imgUrl;
+        this.width = width;
+        this.height = height;
+        this.img = new Image(width, height);
+        this.speed = 2
+
+        // 构造函数初始化
+        this.init = function () {
+          this.create()
+          this.move()
+        };
+
+        // 创造方法
+        this.create = function () {
+          this.img.src = imgUrl;
+          this.img.className = "enemy";
+          // 确定当前敌机的位置
+          const left = Math.floor(Math.random() * (gameWidth - width + 1));
+          const top = -height;
+          this.img.style.left = left + "px";
+          this.img.style.top = top + "px";
+          console.log('%c [ this.img ]-271', 'font-size:13px; background:pink; color:#bf2c9f;', this.img)
+
+          // 渲染到页面
+          enemys.appendChild(this.img);
+        };
+
+        // 删除 
+        this.remove = function () {
+          this.img.parentNode.removeChild(this.img);
+        };
+
+        // 移动
+        this.move = function () {
+          const _this = this;
+          this.timer = setInterval(function () {
+            const currentTop = getStyleValue(_this.img, "top");
+            if (currentTop > gameHeight) {
+              _this.remove();
+            }
+            _this.img.style.top = currentTop + _this.speed + "px";
+          }, 1000 / 60);
+        };
+
+        this.init();
+      }
     </script>
   </body>
 </html>
