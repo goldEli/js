@@ -63,6 +63,8 @@
       let createBulletsTimer = null;
       // 创建敌机的定时器
       let createEnemysTimer = null;
+      // 背景图运动的定时器
+      let backgroundMoveTimer = null;
       // 所有的子弹
       let allBullets = [];
 
@@ -105,8 +107,10 @@
         // 空格键 32
         if (event.keyCode === 32) {
           if (gameStatus === false) {
+            //背景图开始移动
+            backgroundMove();
             // 所有敌机和子弹开始运行
-            restartBulletsAndEnemysMove()
+            restartBulletsAndEnemysMove();
             // 我方飞机可以移动
             document.onmousemove = myPlaneMove;
             // 定制创建子弹
@@ -114,6 +118,9 @@
             // 定时创建敌机
             createEnemys();
           } else {
+            // 背景图停止移动
+            stopBackgroundMove();
+            // 我方飞机停止移动
             document.onmousemove = null;
             // 停止创建子弹
             stopCreateBullets();
@@ -195,8 +202,14 @@
         clearInterval(createBulletsTimer);
       }
 
+      // 创建id
+      function createId() {
+        return parseInt(Math.random() * 100000);
+      }
+
       // 子弹对象
       function Bullet() {
+        this.id = createId();
         // 子弹元素
         this.img = new Image();
         // 移动需要的定时器
@@ -224,6 +237,12 @@
         this.remove = function () {
           this.img.parentNode.removeChild(this.img);
           this.stop();
+          for (let i = 0; i < allBullets.length; ++i) {
+            if (allBullets[i].id === this.id) {
+              allBullets.splice(i, 1);
+              break;
+            }
+          }
         };
 
         this.move = function () {
@@ -292,6 +311,7 @@
 
       // 敌机对象
       function Enemy(imgUrl, width, height, speed) {
+        this.id = createId();
         // 运动定时器
         this.timer = null;
         this.imgUrl = imgUrl;
@@ -317,6 +337,13 @@
         // 删除
         this.remove = function () {
           this.img.parentNode.removeChild(this.img);
+          for (let i = 0; i < allEnemys.length; ++i) {
+            if (allEnemys[i].id === this.id) {
+              allEnemys.splice(i, 1);
+              break;
+            }
+          }
+          this.stop();
         };
 
         // 移动
@@ -343,6 +370,23 @@
         };
 
         this.init();
+      }
+
+      // 背景图运动
+      function backgroundMove() {
+        const speed = 0.5;
+        backgroundMoveTimer = setInterval(function () {
+          const currentBackgroundPositionY = getStyleValue(
+            gameEnter,
+            "backgroundPositionY"
+          );
+          gameEnter.style.backgroundPositionY =
+            currentBackgroundPositionY + speed + "px";
+        }, 1000 / 60);
+      }
+      // 背景图停止移动
+      function stopBackgroundMove() {
+        clearInterval(backgroundMoveTimer);
       }
     </script>
   </body>
