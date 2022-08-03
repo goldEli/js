@@ -81,6 +81,7 @@
           width: 34,
           height: 24,
           speed: 2,
+          hp: 100,
         },
         enemy2: {
           imgUrl: "./images/enemy2.png",
@@ -88,6 +89,7 @@
           width: 46,
           height: 60,
           speed: 1,
+          hp: 800,
         },
         enemy3: {
           imgUrl: "./images/enemy3.png",
@@ -95,6 +97,7 @@
           width: 110,
           height: 164,
           speed: 0.5,
+          hp: 2000,
         },
       };
 
@@ -278,15 +281,7 @@
           // 随机获取某一种敌机数据
           const enemyData = getRandomEnemyData();
           // new
-          allEnemys.push(
-            new Enemy(
-              enemyData.imgUrl,
-              enemyData.width,
-              enemyData.height,
-              enemyData.speed,
-              enemyData.imgUrlCrash
-            )
-          );
+          allEnemys.push(new Enemy(enemyData));
         }, 1000);
       }
 
@@ -315,7 +310,14 @@
       }
 
       // 敌机对象
-      function Enemy(imgUrl, width, height, speed, imgUrlCrash) {
+      function Enemy(options) {
+        const imgUrl = options.imgUrl;
+        const width = options.width;
+        const height = options.height;
+        const speed = options.speed;
+        const imgUrlCrash = options.imgUrlCrash;
+        const hp = options.hp;
+
         this.id = createId();
         // 运动定时器
         this.timer = null;
@@ -324,6 +326,7 @@
         this.height = height;
         this.dom = new Image(width, height);
         this.speed = speed;
+        this.hp = hp;
 
         // 创造方法
         this.create = function () {
@@ -352,14 +355,18 @@
         };
 
         // 鹏创删除
-        this.crashRemove = function() {
+        this.crashRemove = function () {
+          if (this.hp > 0) {
+            this.hp -= 100;
+            return;
+          }
           // 更换爆炸图片
-          this.dom.src = imgUrlCrash
+          this.dom.src = imgUrlCrash;
           // 1秒后删除
           setTimeout(() => {
-            this.remove()
-          }, 200)
-        }
+            this.remove();
+          }, 200);
+        };
 
         // 移动
         this.move = function () {
@@ -416,9 +423,9 @@
             for (let j = 0; j < allEnemys.length; ++j) {
               const currentEnemy = allEnemys[j];
               /*
-                  敌机左边距<子弹左边距+子弹宽度<敌机左边距+敌机宽度
-                  敌机上边距<子弹上边距<敌机上边距+敌机高度
-              */
+                   敌机左边距<子弹左边距+子弹宽度<敌机左边距+敌机宽度
+                   敌机上边距<子弹上边距<敌机上边距+敌机高度
+               */
               const currentBulletLeft = getStyleValue(
                 currentBullet.dom,
                 "left"
@@ -448,10 +455,10 @@
               if (condition) {
                 console.log("crash");
                 //删除子弹
-                currentBullet.remove()
+                currentBullet.remove();
 
                 // 删除敌机
-                currentEnemy.crashRemove()
+                currentEnemy.crashRemove();
               }
             }
           }
