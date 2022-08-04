@@ -44,11 +44,10 @@
       const startBtn = $("startBtn");
 
       const gameEnter = $("gameEnter");
-      const myPlane = $("myPlane");
       const bullets = $("bullets");
       const enemys = $("enemys");
 
-      const scores = $("scores")
+      const scores = $("scores");
 
       // 游戏界面的宽高
       const gameWidth = getStyleValue(game, "width");
@@ -56,9 +55,7 @@
       // 游戏界面的上 左边距
       const gameMarginLeft = getStyleValue(game, "margin-left");
       const gameMarginTop = getStyleValue(game, "margin-top");
-      // 己方飞机的宽高
-      const myPlaneWidth = getStyleValue(myPlane, "width");
-      const myPlaneHeight = getStyleValue(myPlane, "height");
+
       // 字段宽高
       const bulletWidth = 6;
       const bulletHeight = 14;
@@ -111,48 +108,47 @@
       };
 
       // 开始游戏
+      const myPlane = new MyPlane();
+
       startBtn.onclick = function () {
         gameStart.style.display = "none";
         gameEnter.style.display = "block";
 
         // 给当前文档添加键盘事件
-        document.onkeyup = onkeyup;
-      };
-
-      // 处理按键事件
-      function onkeyup(event) {
-        // 空格键 32
-        if (event.keyCode === 32) {
-          if (gameStatus === false) {
-            //背景图开始移动
-            backgroundMove();
-            // 所有敌机和子弹开始运行
-            restartBulletsAndEnemysMove();
-            // 我方飞机可以移动
-            document.onmousemove = myPlaneMove;
-            // 定制创建子弹
-            createBullets();
-            // 定时创建敌机
-            createEnemys();
-            // 检测碰撞
-            checkCrash();
-          } else {
-            // 背景图停止移动
-            stopBackgroundMove();
-            // 我方飞机停止移动
-            document.onmousemove = null;
-            // 停止创建子弹
-            stopCreateBullets();
-            // 停止创建敌机
-            stopCreateEnemys();
-            // 停止所有敌机和子弹的移动
-            stopBulletsAndEnemysMove();
-            // 停止检测碰撞
-            stopCheckCrash();
+        document.onkeyup = function (event) {
+          // 空格键 32
+          if (event.keyCode === 32) {
+            if (gameStatus === false) {
+              //背景图开始移动
+              backgroundMove();
+              // 所有敌机和子弹开始运行
+              restartBulletsAndEnemysMove();
+              // 我方飞机可以移动
+              myPlane.move();
+              // 定制创建子弹
+              createBullets();
+              // 定时创建敌机
+              createEnemys();
+              // 检测碰撞
+              checkCrash();
+            } else {
+              // 背景图停止移动
+              stopBackgroundMove();
+              // 我方飞机停止移动
+              myPlane.stop();
+              // 停止创建子弹
+              stopCreateBullets();
+              // 停止创建敌机
+              stopCreateEnemys();
+              // 停止所有敌机和子弹的移动
+              stopBulletsAndEnemysMove();
+              // 停止检测碰撞
+              stopCheckCrash();
+            }
+            gameStatus = !gameStatus;
           }
-          gameStatus = !gameStatus;
-        }
-      }
+        };
+      };
 
       // 停止所有敌机和子弹
       function stopBulletsAndEnemysMove() {
@@ -174,33 +170,49 @@
         }
       }
 
-      // 乙方飞机移动
-      function myPlaneMove(event) {
-        // 获取鼠标的位置
-        const mouseX = event.pageX;
-        const mouseY = event.pageY;
+      function MyPlane() {
+        this.dom = $("myPlane");
+        this.ph = 2000;
+        this.width = 66;
+        this.height = 80;
+        // 乙方飞机移动
+        this.move = function () {
+          const _this = this;
+          document.onmousemove = function (event) {
+            // 获取鼠标的位置
+            const mouseX = event.pageX;
+            const mouseY = event.pageY;
 
-        // 计算飞机的位置
-        let myPlaneLeft = mouseX - gameMarginLeft - myPlaneWidth / 2;
-        let myPlaneTop = mouseY - gameMarginTop - myPlaneHeight / 2;
+            // 计算飞机的位置
+            let myPlaneLeft = mouseX - gameMarginLeft - _this.width / 2;
+            let myPlaneTop = mouseY - gameMarginTop - _this.height / 2;
 
-        // 修改飞机的位置
+            // 修改飞机的位置
 
-        if (myPlaneLeft <= 0) {
-          myPlaneLeft = 0;
-        }
-        if (myPlaneTop <= 0) {
-          myPlaneTop = 0;
-        }
-        if (myPlaneLeft >= gameWidth - myPlaneWidth) {
-          myPlaneLeft = gameWidth - myPlaneWidth;
-        }
-        if (myPlaneTop >= gameHeight - myPlaneHeight) {
-          myPlaneTop = gameHeight - myPlaneHeight;
-        }
+            if (myPlaneLeft <= 0) {
+              myPlaneLeft = 0;
+            }
+            if (myPlaneTop <= 0) {
+              myPlaneTop = 0;
+            }
+            if (myPlaneLeft >= gameWidth - _this.width) {
+              myPlaneLeft = gameWidth - _this.width;
+            }
+            if (myPlaneTop >= gameHeight - _this.height) {
+              myPlaneTop = gameHeight - _this.height;
+            }
 
-        myPlane.style.left = myPlaneLeft + "px";
-        myPlane.style.top = myPlaneTop + "px";
+            _this.dom.style.left = myPlaneLeft + "px";
+            _this.dom.style.top = myPlaneTop + "px";
+          };
+        };
+
+        this.stop = function () {
+          document.onmousemove = null;
+        };
+
+        this.init = function () {};
+        this.init();
       }
 
       // 定时创建子弹
@@ -238,11 +250,11 @@
           this.dom.className = "bullet";
 
           // 飞机位置
-          const myPlaneLeft = getStyleValue(myPlane, "left");
-          const myPlaneTop = getStyleValue(myPlane, "top");
+          const myPlaneLeft = getStyleValue(myPlane.dom, "left");
+          const myPlaneTop = getStyleValue(myPlane.dom, "top");
 
           // 子弹位置
-          const bulletLeft = myPlaneLeft + myPlaneWidth / 2 - bulletWidth / 2;
+          const bulletLeft = myPlaneLeft + myPlane.width / 2 - bulletWidth / 2;
           const bulletTop = myPlaneTop - bulletHeight;
           this.dom.style.left = bulletLeft + "px";
           this.dom.style.top = bulletTop + "px";
@@ -358,7 +370,7 @@
             if (allEnemys[i].id === this.id) {
               allEnemys.splice(i, 1);
               // 加分
-              renderScores(options.scores)
+              renderScores(options.scores);
               break;
             }
           }
@@ -367,21 +379,25 @@
 
         // 鹏创删除
         this.crashRemove = function () {
+          const _this = this;
+
           if (this.hp > 0) {
             this.hp -= 100;
             return;
           }
+          this.stop();
           // 更换爆炸图片
           this.dom.src = imgUrlCrash;
           // 1秒后删除
           setTimeout(() => {
-            this.remove();
-          }, 200);
+            _this.remove();
+          }, 50);
         };
 
         // 移动
         this.move = function () {
           const _this = this;
+
           this.timer = setInterval(function () {
             const currentTop = getStyleValue(_this.dom, "top");
             if (currentTop > gameHeight) {
@@ -445,14 +461,7 @@
 
               const currentEnemyLeft = getStyleValue(currentEnemy.dom, "left");
               const currentEnemyTop = getStyleValue(currentEnemy.dom, "top");
-              // console.log(
-              //   {currentEnemyLeft,a:currentBulletLeft + currentBullet.width , b:currentEnemyLeft + currentEnemy.width}
-              // )
-              // console.log(
-              //   currentEnemyTop,
-              //   currentBulletTop,
-              //   currentEnemyTop + currentEnemy.height
-              // );
+
               const condition =
                 // 子弹左边距 + 子弹宽度 > 敌机左边距
                 currentBulletLeft + currentBullet.width > currentEnemyLeft &&
@@ -482,14 +491,14 @@
       }
 
       // 渲染得分
-      function renderScores(num=0) {
+      function renderScores(num = 0) {
         // 得到当前得分
-        const currentScores = parseInt(scores.innerHTML)
+        const currentScores = parseInt(scores.innerHTML);
 
         // 当前总得分渲染到页面
-        const total = currentScores+num
+        const total = currentScores + num;
         // 渲染到页面
-        scores.innerHTML = total
+        scores.innerHTML = total;
       }
     </script>
   </body>
