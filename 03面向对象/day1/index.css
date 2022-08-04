@@ -66,3 +66,9 @@
 .enemy {
     position: absolute;
 }
+.scores-box {
+    position: fixed;
+    top:20px;
+    left: 8px;
+    font-weight: bold;
+}
