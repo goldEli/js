@@ -7,7 +7,20 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="like" id="like">👍</div>
+
     <script>
+      var like = document.getElementById("like");
+
+      var isLike = false;
+      like.onclick = function () {
+        isLike = !isLike;
+        if (isLike) {
+          like.innerHTML = "👎";
+        } else {
+          like.innerHTML = "👍";
+        }
+      };
       /* 练习 */
 
       /* 1.用户户输入整数。
@@ -177,59 +190,59 @@
 
 
            2.输入两个日期  算这两个日期之间有多少天，并且考虑闰年。(选做) */
-    //   const year = Number(window.prompt("年"));
-    //   const mouth = Number(window.prompt("月"));
-    //   const day = Number(window.prompt("日"));
+      //   const year = Number(window.prompt("年"));
+      //   const mouth = Number(window.prompt("月"));
+      //   const day = Number(window.prompt("日"));
 
-    //   let count = 0;
+      //   let count = 0;
 
-    //   switch (mouth) {
-    //     case 1:
-    //       count = day;
-    //       break;
-    //     case 2:
-    //       count = 31 + day;
-    //       break;
-    //     case 3:
-    //       count = 31 + 28 + day;
-    //       break;
-    //     case 4:
-    //       count = 31 + 28 + 31 + day;
-    //       break;
-    //     case 5:
-    //       count = 31 + 28 + 31 + 30 + day;
-    //       break;
-    //     case 6:
-    //       count = 31 + 28 + 31 + 30 + 31 + day;
-    //       break;
-    //     case 7:
-    //       count = 31 + 28 + 31 + 30 + 31 + 30 + day;
-    //       break;
-    //     case 8:
-    //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + day;
-    //       break;
-    //     case 9:
-    //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + day;
-    //       break;
-    //     case 10:
-    //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + day;
-    //       break;
-    //     case 11:
-    //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + day;
-    //       break;
-    //     case 12:
-    //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + day;
-    //       break;
-    //     default:
-    //       break;
-    //   }
+      //   switch (mouth) {
+      //     case 1:
+      //       count = day;
+      //       break;
+      //     case 2:
+      //       count = 31 + day;
+      //       break;
+      //     case 3:
+      //       count = 31 + 28 + day;
+      //       break;
+      //     case 4:
+      //       count = 31 + 28 + 31 + day;
+      //       break;
+      //     case 5:
+      //       count = 31 + 28 + 31 + 30 + day;
+      //       break;
+      //     case 6:
+      //       count = 31 + 28 + 31 + 30 + 31 + day;
+      //       break;
+      //     case 7:
+      //       count = 31 + 28 + 31 + 30 + 31 + 30 + day;
+      //       break;
+      //     case 8:
+      //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + day;
+      //       break;
+      //     case 9:
+      //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + day;
+      //       break;
+      //     case 10:
+      //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + day;
+      //       break;
+      //     case 11:
+      //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + day;
+      //       break;
+      //     case 12:
+      //       count = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + day;
+      //       break;
+      //     default:
+      //       break;
+      //   }
 
-    //   if (mouth > 2) {
-    //     if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
-    //       count += 1;
-    //     }
-    //   }
-    //   alert("这是这" + year + "年的第" + count + "天");
+      //   if (mouth > 2) {
+      //     if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+      //       count += 1;
+      //     }
+      //   }
+      //   alert("这是这" + year + "年的第" + count + "天");
     </script>
   </body>
 </html>

@@ -9,6 +9,16 @@ console.log("Math.random()", Math.random());
 const randomNumber = Math.random();
 console.log("parseInt(randomNumber * 10)", parseInt(randomNumber * 10));
 // 20-50 随机数
+/* 
+获取某个范围内的随机数
+随机数*（大数字-小数字）+小数字
+随机数*（大数字-小数字+1）+小数字  
+比如 20-50
+Math.random() 范围是 （0,1）不包含0和1
+Math.random() * （50-20+1）范围是 （0,31）不包含0和31
+Math.random() * （50-20+1）+ 20 范围是 （20,51）不包含20和51
+parseInt(Math.random() * （50-20+1）+ 20) 范围是 [20,50] 包含20和50
+*/
 // (0,1) => (0-31) => (20-51) => [20-50]
 // parseInt(Math.random() * (max - min + 1) + min)
 console.log(
