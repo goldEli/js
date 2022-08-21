@@ -70,3 +70,5 @@ for(var i = 0;i < 6;i++){
 console.log(red);
 
 var blue = '蓝色' + Math.floor(Math.random() * 16 + 1);
+
+
