@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .close-btn {
+        margin-left: 10px;
+      }
+      .close-btn:hover {
+        cursor: pointer;
+        color: red;
+      }
+      #removeBox {
+        width: 200px;
+        height: 100px;
+        border: 1px solid red;
+      }
+      #removeBox span {
+        margin: 0 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <!-- <div class="item">
+        <span>苹果</span>
+        <span class="close-btn">x</span>
+      </div>
+      <div class="item">
+        <span>苹果</span>
+        <span>x</span>
+      </div>
+      <div class="item">
+        <span>苹果</span>
+        <span>x</span>
+      </div> -->
+    </div>
+    <h4>已删除的水果：</h4>
+    <div id="removeBox"></div>
+    <script>
+      const data = [
+        { id: 1, value: "苹果" },
+        { id: 2, value: "香蕉" },
+        { id: 3, value: "葡萄" },
+      ];
+
+      const box = document.getElementById("box");
+      const removeBox = document.getElementById("removeBox");
+      function render(data) {
+        for (let i = 0; i < data.length; ++i) {
+          const dataItem = data[i];
+          const item = document.createElement("div");
+          //   item.className = "item";
+          //   const title = document.createElement("span");
+          //   const titleText = document.createTextNode(dataItem.value);
+          //   const closeBtn = document.createElement("span");
+          //   closeBtn.onclick = function () {
+          //     box.removeChild(item)
+          //     add(dataItem.value)
+          //   };
+          //   closeBtn.className = "close-btn";
+          //   const closeBtnText = document.createTextNode("x");
+          //   closeBtn.appendChild(closeBtnText);
+          //   title.appendChild(titleText);
+          //   item.appendChild(title);
+          //   item.appendChild(closeBtn);
+          item.innerHTML = `
+        <span>${dataItem.value}</span>
+        <span onclick="remove(${dataItem.id})" class="close-btn">x</span>
+        `;
+
+          box.appendChild(item);
+        }
+      }
+
+      function remove(id, value) {
+        for (let i = 0; i < data.length; ++i) {
+          if (data[i].id === id) {
+            add(data[i].value)
+            data.splice(i, 1);
+            break;
+          }
+        }
+        box.innerHTML = "";
+        render(data);
+      }
+
+      function add(value) {
+        const item = document.createElement("span");
+        const text = document.createTextNode(value);
+        item.appendChild(text);
+        removeBox.appendChild(item);
+      }
+
+      render(data);
+    </script>
+  </body>
+</html>
