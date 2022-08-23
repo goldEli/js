@@ -13,12 +13,12 @@
         cursor: pointer;
         color: red;
       }
-      #removeBox {
+      #selectBox {
         width: 200px;
         height: 100px;
         border: 1px solid red;
       }
-      #removeBox span {
+      #selectBox span {
         margin: 0 8px;
       }
     </style>
@@ -39,7 +39,8 @@
       </div> -->
     </div>
     <h4>已经添加的水果：</h4>
-    <div id="removeBox"></div>
+    <div id="selectBox"></div>
+    <button>清除所有已添加的水果</button>
     <script>
       const data = [
         { id: 1, value: "苹果" },
@@ -48,7 +49,7 @@
       ];
 
       const box = document.getElementById("box");
-      const removeBox = document.getElementById("removeBox");
+      const selectBox = document.getElementById("selectBox");
       function render(data) {
         for (let i = 0; i < data.length; ++i) {
           const dataItem = data[i];
@@ -92,7 +93,7 @@
         const item = document.createElement("span");
         const text = document.createTextNode(value);
         item.appendChild(text);
-        removeBox.appendChild(item);
+        selectBox.appendChild(item);
       }
 
       render(data);
