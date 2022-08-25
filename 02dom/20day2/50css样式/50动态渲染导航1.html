@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=2.0" />
+    <title>Document</title>
+    <style>
+      .menu {
+      }
+      .menu-item {
+        overflow: hidden;
+      }
+      .sub-menu {
+        /* height: 180px; */
+        height: 0px;
+      }
+      .title {
+        height: 45px;
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+      .title:hover {
+        cursor: pointer;
+      }
+      .menu-item > .title {
+        background-color: pink;
+      }
+      .sub-menu > .title {
+        background-color: green;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        list-style: none;
+      }
+      #menu ul li span {
+        line-height: 45px;
+      }
+      #menu ul li {
+        height: 45px;
+        width: 200px;
+        color: white;
+        background-color: pink;
+        overflow: hidden;
+      }
+      #menu > ul > li > ul > li {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="menu">
+      <!-- <ul>
+        <li>
+          <span>首页</span>
+          <ul>
+            <li><span>菜单1</span></li>
+            <li><span>菜单1</span></li>
+            <li><span>菜单1</span></li>
+            <li><span>菜单1</span></li>
+          </ul>
+        </li>
+        <li>
+          <span>首页</span>
+        </li>
+      </ul> -->
+      <!-- <div class="menu-item">
+        <div class="title">首页</div>
+        <div class="sub-menu">
+          <div class="title">菜单1</div>
+          <div class="title">菜单2</div>
+          <div class="title">菜单3</div>
+          <div class="title">菜单3</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        <div class="title">博客</div>
+      </div> -->
+    </div>
+    <script>
+      /* 
+            从后端来的。基于数据来渲染页面
+            如果有children 就说明有子菜单
+
+            1. 动态渲染
+            2. heigh 改变增加过度效果
+        */
+      const data = [
+        { name: "首页", children: [{ name: "1" }] },
+        {
+          name: "博客",
+          children: [
+            { name: "菜单一" },
+            { name: "菜单二" },
+            { name: "菜单三" },
+          ],
+        },
+        {
+          name: "技术支持",
+          children: [
+            { name: "菜单一" },
+            { name: "菜单二" },
+            { name: "菜单三" },
+            { name: "菜单四" },
+          ],
+        },
+        { name: "操作" },
+        { name: "帮组" },
+        { name: "新闻" },
+      ];
+      const menu = document.getElementById("menu");
+
+      function render() {
+        for (let i = 0; i < data.length; ++i) {
+          const ul = document.createElement("ul");
+          const li = document.createElement("li");
+          li.innerHTML = `<span onclick="openMenu(this)">${data[i].name}</span>`;
+          ul.appendChild(li);
+          menu.appendChild(ul);
+          if (data[i].children && data[i].children.length > 0) {
+            renderSubMenu(data[i].children, li);
+          }
+        }
+      }
+
+      function renderSubMenu(subMenuData, dom) {
+        console.log(subMenuData);
+        for (let i = 0; i < subMenuData.length; ++i) {
+          const ul = document.createElement("ul");
+          const li = document.createElement("li");
+          li.innerHTML = `<span>${subMenuData[i].name}</span>`;
+          ul.appendChild(li);
+          dom.appendChild(ul);
+        }
+      }
+
+      function openMenu(span) {
+        const li = span.parentNode;
+        const subMenuNum = li.querySelectorAll("li").length;
+
+        const allLi = document.querySelectorAll("#menu>ul>li");
+
+        console.log(allLi);
+        for (let i = 0; i < allLi.length; ++i) {
+          allLi[i].style.height = "45px";
+        }
+
+        li.style.height = (subMenuNum + 1) * 45 + "px";
+      }
+
+      render();
+    </script>
+  </body>
+</html>
