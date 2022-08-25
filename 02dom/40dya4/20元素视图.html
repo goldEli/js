@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         .fa {
             width: 200px;
             height: 200px;
@@ -22,36 +26,27 @@
         html {
             margin-top: 10px;
         }
+        h1 {
+            height: 100px;
+        }
     </style>
 </head>
 <body>
     <div id="fa" class="fa">
         <h1>12312</h1>
         <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
-        <h1>12312</h1>
         <div id="son" class="son"></div>
     </div>
     <script>
         const fa = document.getElementById("fa")
-        console.log(fa.offsetWidth)
-        console.log(fa.clientWidth)
+        console.log("offsetWidth",fa.offsetWidth)
+        console.log("clientWidth",fa.clientWidth)
         const son = document.getElementById("son")
-        console.log(son.offsetTop)
-        console.log(son.offsetLeft)
+        console.log("offsetTop",son.offsetTop)
+        console.log("offsetLeft",son.offsetLeft)
 
-        console.log(fa.scrollWidth)
+        console.log("scrollWidth", fa.scrollWidth)
+        console.log("scrollHeight", fa.scrollHeight)
     </script>
 </body>
 </html>

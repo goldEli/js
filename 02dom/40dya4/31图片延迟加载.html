@@ -5,54 +5,51 @@
             padding: 0;
             list-style: none;
         }
-        ul{
-            width: 1000px;
-            margin: 10px auto;
-        }
-        li{
-            width: 400px;
-            height: 400px;
-            float: left;
-            margin: 30px;
+
+        img {
+            height: 200px;
+            display: block;
         }
     </style>
 </head>
+
 <body>
-    <ul>
-        <li><img _src="./images/lanrenzhijia1.jpg" src="" alt=""></li>
-        <li><img _src="./images/lanrenzhijia2.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia3.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-        <li><img _src="./images/lanrenzhijia4.jpg" alt=""></li>
-    </ul>
+        <img _src="./images/lanrenzhijia1.jpg" src="">
+        <img _src="./images/lanrenzhijia2.jpg" alt="">
+        <img _src="./images/lanrenzhijia3.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
+        <img _src="./images/lanrenzhijia4.jpg" alt="">
 </body>
 <script>
     //目的：加快首屏渲染速率
     function show() {
-        var aImg=document.querySelectorAll('img');
+        var aImg = document.querySelectorAll('img');
         /*滚动距离*/
-        var scrTop=document.documentElement.scrollTop;
+        var scrTop = document.documentElement.scrollTop || document.body.scrollTop;;
         /*可视区高度*/
-        var cliHeight=document.documentElement.clientHeight;
+        // document.documentElement.clientHeight 有兼容问题
+        var cliHeight = document.body.clientHeight;
+        console.log({ scrTop, cliHeight })
         /*获取物体距离屏幕的高度*/
-        for(var i=0;i<aImg.length;i++){
+        for (var i = 0; i < aImg.length; i++) {
             /*图片距离顶端的距离*/
-            var imgTop=aImg[i].offsetTop;
-
-            if(scrTop+cliHeight>=imgTop+50){
-                aImg[i].setAttribute('src',aImg[i].getAttribute('_src'));
+            var imgTop = aImg[i].offsetTop;
+            
+            if (scrTop + cliHeight > imgTop) {
+                aImg[i].setAttribute('src', aImg[i].getAttribute('_src'));
             }
         }
     }
     show();
-    window.onscroll=window.onresize=show;
+    window.onscroll = window.onresize = show;
 </script>
+
 </html>
