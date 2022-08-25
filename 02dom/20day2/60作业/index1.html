@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul {
+        margin: 50px;
+        position: relative;
+      }
+      li {
+        list-style: none;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        margin: 0 1px;
+        position: absolute;
+        bottom: 0;
+        background-color: gainsboro;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s linear;
+      }
+      ul li:nth-child(2) {
+        left: 130px;
+      }
+      ul li:nth-child(3) {
+        left: 235px;
+      }
+      ul li:nth-child(4) {
+        left: 295px;
+      }
+      ul li:nth-child(5) {
+        left: 398px;
+      }
+      .tabs-content {
+        width: 900px;
+        border: 1px solid grey;
+        position: absolute;
+        left: 0;
+        display: none;
+      }
+      .change {
+        background-color: #70b693;
+        color: white;
+        height: 40px;
+        line-height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="myUl">
+      <li id="0">Long Tab Name</li>
+      <li id="1">Another Tab</li>
+      <li id="2">Tab 3</li>
+      <li id="3">Another tab</li>
+      <li id="4">Ancther Tab</li>
+    </ul>
+    <div class="tabs-content">
+      <h3>Content 1</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <div class="tabs-content">
+      <h3>Content 2</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <div class="tabs-content">
+      <h3>Content 3</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <div class="tabs-content">
+      <h3>Content 4</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <div class="tabs-content">
+      <h3>Content 5</h3>
+      <p>
+        Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
+        turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
+      </p>
+    </div>
+    <script>
+      const myUl = document.getElementById("myUl");
+      myUl.onclick = function (event) {
+        const target = event.target;
+        const id = target.id;
+        const index = parseInt(id);
+
+        // tabs选中
+        const allTabs = document.querySelectorAll("ul > li");
+        for (let i = 0; i < allTabs.length; ++i) {
+          allTabs[i].className = "";
+        }
+        target.className = "change";
+
+        // 内容切换
+        const allTabsContent = document.querySelectorAll(".tabs-content");
+        const current = allTabsContent[index];
+
+        for (let i = 0; i < allTabsContent.length; ++i) {
+          allTabsContent[i].style.display = "none";
+        }
+        current.style.display = "block";
+      };
+    </script>
+  </body>
+</html>
