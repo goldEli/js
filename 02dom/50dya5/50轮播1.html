@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 400px;
+        height: 200px;
+        outline: solid red;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+      }
+      .image-box {
+        height: 100px;
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0px;
+      }
+      .image1,
+      .image2,
+      .image3 {
+        width: 400px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+      }
+      .image1 {
+        background-color: orange;
+      }
+      .image2 {
+        background-color: aqua;
+      }
+      .image3 {
+        background-color: rgb(57, 185, 68);
+      }
+      #toLeft,
+      #toRight {
+        position: absolute;
+        /* 垂直居中 */
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      #toLeft {
+        left: 0;
+      }
+      #toRight {
+        right: 0;
+      }
+      .circles {
+        position: absolute;
+        display: flex;
+        position: absolute;
+        bottom: 8px;
+        /* 水平居中 */
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .circles-active {
+        background-color: #fff;
+      }
+      .circles > span {
+        width: 10px;
+        height: 10px;
+        border: 2px solid;
+        border-radius: 50%;
+        margin: 0 10px;
+      }
+      #toLeft:hover,
+      #toRight:hover,
+      .circles > span:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div id="imageBox" class="image-box">
+        <div class="image1">1</div>
+        <div class="image2">2</div>
+        <div class="image3">3</div>
+        <div class="image1">1</div>
+      </div>
+      <div id="toRight">&gt;</div>
+      <div id="toLeft">&lt;</div>
+      <div class="circles">
+        <span class="circles-active"></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <script>
+      const imageBox = document.querySelector("#imageBox");
+      const toRight = document.querySelector("#toRight");
+      const toLeft = document.querySelector("#toLeft");
+      const imageArr = document.querySelectorAll(".image-box > div");
+      const circlesArr = document.querySelectorAll(".circles > span");
+      const imageArrLength = imageArr.length;
+      const imageWidth = 400;
+      let currentImageIndex = 0;
+      let timer = null;
+
+      for (let i = 0; i < circlesArr.length; ++i) {
+        const circle = circlesArr[i];
+        circle.onclick = function () {
+          handleCirclesActive(i);
+          imageBox.style.left = 400 * -1 * i + "px";
+        };
+      }
+
+      function getStyleValue(dom, attr) {
+        return parseFloat(getComputedStyle(dom)[attr]);
+      }
+
+      function handleCurrentImageIndex() {}
+
+      // 点击向左箭头 imageBox 向左移动 imageWidth
+      toLeft.onclick = function () {
+        // 如果定时器存在，那么不执行点击事件
+        if (timer !== null) {
+          return; // 终止后面的代码运行
+        }
+        if (currentImageIndex === 3) {
+          imageBox.style.left = "0px";
+          currentImageIndex = 0;
+        }
+
+        move(1);
+      };
+
+      toRight.onclick = function () {
+        // 如果定时器存在，那么不执行点击事件
+        if (timer !== null) {
+          return; // 终止后面的代码运行
+        }
+        // 当 currentImageIndex === 0 跳到 3
+        if (currentImageIndex === 0) {
+          imageBox.style.left = "-1200px";
+          currentImageIndex = 3;
+        }
+        move(-1);
+      };
+
+      /* 
+        direction 方向
+        向左为 1
+        向右为 -1
+      */
+      function move(direction) {
+        let distance = imageWidth;
+        const speed = 10;
+        timer = setInterval(() => {
+          if (distance <= 0) {
+            currentImageIndex += direction;
+            clearInterval(timer);
+            timer = null;
+            handleCirclesActive(currentImageIndex);
+            return;
+          }
+          const left = getStyleValue(imageBox, "left");
+          imageBox.style.left = left - speed * direction + "px";
+          distance -= speed;
+        }, 1000 / 60);
+      }
+
+      function handleCirclesActive(index) {
+        if (index === 3) {
+          index = 0;
+        }
+        for (let i = 0; i < circlesArr.length; ++i) {
+          circlesArr[i].className = "";
+        }
+        circlesArr[index].className = "circles-active";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    div {
+      width: 600px;
+      height: 400px;
+      margin: 40px auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    ul {
+      width: 3000px;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border: 1px solid #ccc;
+      transition: 1s all linear;
+    }
+
+    ul li {
+      width: 600px;
+      height: 400px;
+      float: left;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    ol {
+      position: absolute;
+      width: 300px;
+      left: 150px;
+      bottom: 20px;
+    }
+
+    ol li {
+      width: 30px;
+      height: 30px;
+      border: 5px solid #999;
+      border-radius: 50%;
+      margin: 10px;
+      float: left;
+    }
+
+    ol .active {
+      background: #eee;
+    }
+
+    .left {
+      position: absolute;
+      left: 20px;
+      top: 180px;
+      font-size: 40px;
+    }
+
+    .right {
+      position: absolute;
+      right: 20px;
+      top: 180px;
+      font-size: 40px;
+    }
+
+    .image1,
+    .image2,
+    .image3,
+    .image4,
+    .image5 {
+      width: 100%;
+      height: 100%;
+    }
+
+    .image1 {
+      background-color: purple;
+    }
+
+    .image2 {
+      background-color: red;
+    }
+
+    .image3 {
+      background-color: orange;
+    }
+
+    .image4 {
+      background-color: pink;
+    }
+
+    .image5 {
+      background-color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <ul>
+      <li class="active">
+        <div class="image1">1</div>
+      </li>
+      <li><div class="image2">1</div></li>
+      <li><div class="image3">2</div></li>
+      <li><div class="image4">3</div></li>
+      <li><div class="image5">4</div></li>
+    </ul>
+    <a class="left">👈</a>
+    <a class="right">👉</a>
+    <ol>
+      <li class="active"></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ol>
+  </div>
+
+  <script>
+    var oBox = document.querySelector("div");
+    var oUl = document.querySelector("ul");
+    var imgLi = document.querySelectorAll("ul li");
+    var btnLi = document.querySelectorAll("ol li");
+    var oRight = document.querySelector(".right");
+    var oLeft = document.querySelector(".left");
+    var iNow = 0;
+    var W = imgLi[0].offsetWidth; //一个li 图片的宽度
+
+    //重新渲染页面
+    function render() {
+      for (var i = 0; i < btnLi.length; i++) {
+        btnLi[i].classList.remove("active");
+      }
+      btnLi[iNow].classList.add("active");
+      oUl.style.left = -iNow * W + "px";
+    }
+    function btnFn() {
+      //按钮点击触发的事情
+      iNow = this.dataset.index;
+      //让页面重新渲染
+      render();
+    }
+    function rightFn() {
+      iNow++;
+      if (iNow == imgLi.length) {
+        iNow = 0;
+      }
+      //让页面重新渲染
+      render();
+    }
+    function leftFn() {
+      iNow--;
+      if (iNow == -1) {
+        iNow = imgLi.length - 1;
+      }
+      //让页面重新渲染
+      render();
+    }
+    function overFn() {
+      clearInterval(timer);
+    }
+    function outFn() {
+      timer = setInterval(rightFn, 2000);
+    }
+
+    var timer = setInterval(rightFn, 2000);
+    oBox.addEventListener("mouseover", overFn);
+    oBox.addEventListener("mouseout", outFn);
+    oRight.addEventListener("click", rightFn);
+    oLeft.addEventListener("click", leftFn);
+
+    for (var i = 0; i < btnLi.length; i++) {
+      btnLi[i].dataset.index = i;
+      btnLi[i].addEventListener("click", btnFn);
+    }
+  </script>
+</body>
+
+</html>
