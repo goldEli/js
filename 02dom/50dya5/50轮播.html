@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 400px;
+        height: 200px;
+        outline: solid red;
+        margin: 0 auto;
+        position: relative;
+        /* overflow: hidden; */
+      }
+      .image-box {
+        width: 1200px;
+        height: 100px;
+        display: flex;
+      }
+      .image1,
+      .image2,
+      .image3 {
+        width: 400px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+      }
+      .image1 {
+        background-color: orange;
+      }
+      .image2 {
+        background-color: aqua;
+      }
+      .image3 {
+        background-color: rgb(57, 185, 68);
+      }
+      #toLeft,
+      #toRight {
+        position: absolute;
+        /* 垂直居中 */
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      #toLeft {
+        left: 0;
+      }
+      #toRight {
+        right: 0;
+      }
+      .circles {
+        position: absolute;
+        display: flex;
+        position: absolute;
+        bottom: 8px;
+        /* 水平居中 */
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .circles-active {
+        background-color: #fff;
+      }
+      .circles > span {
+        width: 10px;
+        height: 10px;
+        border: 2px solid;
+        border-radius: 50%;
+        margin: 0 10px;
+      }
+      #toLeft:hover,
+      #toRight:hover,
+      .circles > span:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="image-box">
+        <div class="image1">1</div>
+        <div class="image2">2</div>
+        <div class="image3">3</div>
+      </div>
+      <div id="toRight">&gt;</div>
+      <div id="toLeft">&lt;</div>
+      <div class="circles">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <script></script>
+  </body>
+</html>

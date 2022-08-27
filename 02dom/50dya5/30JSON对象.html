@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const person = {
+        name: "张三",
+        showName: function () {
+          // 谁调用 this 指向谁
+          console.log(this.name);
+        },
+      };
+
+      // 添加属性 值为唯一 再次添加就是修改
+      person.age = 33;
+      person["age"] = 32;
+
+      person.gender = "男";
+
+      // 删除属性
+      delete person.gender;
+
+      person.showName();
+
+      /* 遍历对象 */
+      for (let key in person) {
+        console.log(key, person[key]);
+      }
+
+      // 将json 对象转换为 json 字符串
+      const str = JSON.stringify(person);
+      // 将json 字符串转换为json对象
+      const obj = JSON.parse(str);
+    </script>
+  </body>
+</html>
