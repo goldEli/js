@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const arr = ["苹果", "苹果", "苹果", "香蕉", "香蕉", "梨"];
+
+      // 数组转json对象
+      const o = {};
+
+      for (let i = 0; i < arr.length; ++i) {
+        const key = arr[i];
+        if (o[key] === undefined) {
+          o[key] = 1;
+        } else {
+          o[key] = o[key] + 1;
+        }
+      }
+
+      console.log(0);
+      let str = "";
+
+      for (let key in o) {
+        str += `${key}${o[key]}个`;
+      }
+      // 苹果3个，香蕉2个，梨1个
+      console.log(str);
+    </script>
+  </body>
+</html>

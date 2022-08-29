@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <textarea cols="50" rows="10">衣服 运动鞋 裙子 裤子 衣服 运动鞋 裙子 裤子 衣服 运动鞋 裙子 裤子 衣服 运动鞋 衣服 运动鞋 衣服 运动鞋 裙子 衣服 运动鞋 裙子  
-    </textarea>
-    <button>转化</button>
+  </head>
+  <body>
     <textarea cols="50" rows="10">
-
-    </textarea>
-</body>
+衣服 运动鞋 裙子 裤子 衣服 运动鞋 裙子 裤子 衣服 运动鞋 裙子 裤子 衣服 运动鞋 衣服 运动鞋 衣服 运动鞋 裙子 衣服 运动鞋 裙子</textarea
+    >
+    <button>转化</button>
+    <textarea cols="50" rows="10"> </textarea>
+    <script>
+      const textareaArr = document.querySelectorAll("textarea");
+      const value = textareaArr[0].value;
+      const arr = value.split(" ");
+      function removeDuplicates(arr) {
+        const o = {};
+        const newArr = [];
+        for (let i = 0; i < arr.length; ++i) {
+          o[arr[i]] = true;
+        }
+        // json 自动帮我们去重了 拿到key就可以了
+        for (let key in o) {
+          if (key !== undefined) {
+            newArr.push(key);
+          }
+        }
+        return newArr;
+      }
+    </script>
+  </body>
 </html>
 <!-- 
     三道题 1、必做
