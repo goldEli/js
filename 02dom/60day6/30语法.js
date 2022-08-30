@@ -17,7 +17,7 @@ console.log("空格", "   13  sdf   ".match(/\s/g));
 console.log("非数字", "234sdf234ef——".match(/\D/g));
 
 // \W [^a-zA-Z0-9_] a-zA-Z0-9_这些东西以外
-console.log("\\W","%sdfs234_".match(/\W/g));
+console.log("\\W", "%sdfs234_".match(/\W/g));
 
 // \S 非空格
 console.log("   13  sdf   ".match(/\S/g));
@@ -59,3 +59,5 @@ console.log("sfs324sdf".match(/[a-z]/g));
 console.log("sfs324AJSIDsdf".match(/[a-zA-Z]/g));
 
 console.log("sfs324sdf".match(/[^0-9]/g)); // 非数字
+
+console.log("是但凡是sdfsdf水电费se123".match(/[\u4e00-\u9fa5]+/g));

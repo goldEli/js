@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <p>
+        手机号：<input
+          type="text"
+          placeholder="请输入手机号"
+          name="user"
+        /><span class="red"></span>
+      </p>
+      <p>
+        密码：<input
+          type="password"
+          placeholder="请输入6-12位字母或数字"
+          name="password"
+        /><span class="red"></span>
+      </p>
+    </form>
+    <button>注册</button>
+    <script>
+      const rules = {
+        user: {
+          reg: /^1[3-9]\d{9}$/,
+          errorMessage: "请输入正确的手机号",
+        },
+        password: {
+          reg: /^[0-9a-zA-Z]{6,12}$/,
+          errorMessage: "请输入包含数字和字母6-12位的密码",
+        },
+      };
+
+      // 用户输入完 失焦后验证
+      const inputArr = document.querySelectorAll("input");
+      for (let i = 0; i < inputArr.length; ++i) {
+        const input = inputArr[i];
+        input.onblur = function (event) {
+          const target = event.target;
+          const value = target.value;
+          const name = target.name;
+          const reg = rules[name].reg;
+          const errorMessage = rules[name].errorMessage;
+          // 分别处理每个input的正则和报错信息
+          if (!reg.test(value)) {
+            target.nextElementSibling.innerHTML = errorMessage;
+          } else {
+            target.nextElementSibling.innerHTML = "";
+          }
+        };
+      }
+    </script>
+  </body>
+</html>
