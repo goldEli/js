@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .menu {
+        width: 100px;
+        height: 200px;
+        background-color: antiquewhite;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+      }
+      .menu > p:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu">
+      <p>菜单1</p>
+      <p>菜单2</p>
+      <p>菜单3</p>
+      <p>菜单4</p>
+    </div>
+    <script>
+      const menu = document.querySelector(".menu");
+      document.oncontextmenu = function (event) {
+        const mouseX = event.pageX;
+        const mouseY = event.pageY;
+        console.log(mouseX, mouseY);
+        menu.style.left = mouseX + "px";
+        menu.style.top = mouseY + "px";
+        event.preventDefault()
+      };
+    </script>
+  </body>
+</html>
