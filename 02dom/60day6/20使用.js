@@ -16,7 +16,9 @@ let reg1 = /\d/g; //把符合条件的一个数字挑出来
 let reg2 = /\d\d/g; //把符合条件的两个数字挑出来
 //但是在这儿即有两个又有三个，所以就出现了量词
 let reg3 = /\d+/g;
-console.log(str1.match(reg3));
+console.log("把符合条件的一个数字挑出来",str1.match(/\d/g));
+console.log("把符合条件的两个数字挑出来",str1.match(/\d\d/g));
+console.log("只要至少一个数字的都挑出来",str1.match(/\d+/g));
 
 /**
 str.replace(把谁，替换成谁) 
