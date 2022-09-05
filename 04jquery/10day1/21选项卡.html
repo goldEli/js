@@ -2,17 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
     <style>
       * {
         margin: 0;
         padding: 0;
       }
-      .clear:after {
-        content: "";
-        display: block;
-        clear: both;
-      }
+
       ul {
         margin: 50px;
         position: relative;
@@ -45,14 +43,15 @@
       ul li:nth-child(5) {
         left: 398px;
       }
-      .wn-tabs {
+      .tabs-content {
         width: 900px;
         border: 1px solid grey;
         position: absolute;
         left: 0;
         display: none;
       }
-      .change {
+      /* 选中的样式 */
+      .active {
         background-color: #70b693;
         color: white;
         height: 40px;
@@ -61,63 +60,87 @@
     </style>
   </head>
   <body>
-    <ul id="myUl" class="clear">
-      <li id="mylino1" onclick="tabClick(this,0)">Long Tab Name</li>
-      <li onclick="tabClick(this,1)">Another Tab</li>
-      <li onclick="tabClick(this,2)">Tab 3</li>
-      <li onclick="tabClick(this,3)">Another tab</li>
-      <li onclick="tabClick(this,4)">Ancther Tab</li>
+    <ul id="myUl">
+      <li id="0">Long Tab Name</li>
+      <li id="1">Another Tab</li>
+      <li id="2">Tab 3</li>
+      <li id="3">Another tab</li>
+      <li id="4">Ancther Tab</li>
     </ul>
-    <div class="wn-tabs">
+    <div class="tabs-content">
       <h3>Content 1</h3>
       <p>
         Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
         turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
       </p>
     </div>
-    <div class="wn-tabs">
+    <div class="tabs-content">
       <h3>Content 2</h3>
       <p>
         Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
         turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
       </p>
     </div>
-    <div class="wn-tabs">
+    <div class="tabs-content">
       <h3>Content 3</h3>
       <p>
         Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
         turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
       </p>
     </div>
-    <div class="wn-tabs">
+    <div class="tabs-content">
       <h3>Content 4</h3>
       <p>
         Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
         turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
       </p>
     </div>
-    <div class="wn-tabs">
+    <div class="tabs-content">
       <h3>Content 5</h3>
       <p>
         Aliquam eleifend magna mauris, id egestas eros dictum ac. Vivamus ac
         turpis at nisi mattis aliquam. In hac habitasse platea dictumst.
       </p>
     </div>
-    <script
-      src="https://code.jquery.com/jquery-1.12.4.js"
-      integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
     <script>
-      
-      function tabClick(obj, num) {
-        $(obj).addClass("change").siblings().removeClass("change");
-        $(".wn-tabs")
-          .eq(num)
-          .css({ display: "block" })
-          .siblings(".wn-tabs")
-          .css({ display: "none" });
+      // const myUl = document.getElementById("myUl");
+
+      handleTabSwitching(2);
+
+      function handleTabSwitching(index) {
+        // 把所有的tabs选中样式取消
+        // const allLi = document.querySelectorAll("#myUl > li");
+        // for (let i = 0; i < allLi.length; ++i) {
+        //   allLi[i].className = "";
+        // }
+        $("#myUl > li").removeClass("active").eq(index).addClass("active");
+        // tabs 选中
+        // allLi[index].className = "active";
+        // $("#myUl > li").eq(index).addClass("active");
+
+        // 获取展示内容的元素节点
+        // const allTabsContent = document.querySelectorAll(".tabs-content");
+
+        // 隐藏所有的内容
+        // for (let i = 0; i < allTabsContent.length; ++i) {
+        //   allTabsContent[i].style.display = "none";
+        // }
+        $(".tabs-content").hide().eq(index).show();
+
+        // 展示显示的内容
+        // allTabsContent[index].style.display = "block";
+        // $(".tabs-content").eq(index).show();
       }
+
+      $("#myUl").click(function (event) {
+        // 获取点中的目标
+        const target = event.target;
+        // 获取按钮的下标
+        const index = parseInt(target.id);
+
+        handleTabSwitching(index);
+      });
     </script>
   </body>
 </html>

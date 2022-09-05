@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+            链式调用的核心 就是 返回this
+        */
+      function fun(num) {
+        this.num = num;
+        this.add = function (n) {
+          this.num = this.num + n;
+          console.log(this.num);
+          return this;
+        };
+        this.sub = function (n) {
+          this.num = this.num - n;
+          console.log(this.num);
+          return this;
+        };
+        return this;
+      }
+      fun(20).add(10).sub(20);
+    </script>
+  </body>
+</html>
