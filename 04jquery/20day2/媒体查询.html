@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 
+            有的屏幕大 有的屏幕小 pad 手机
+            那需要单独写一套css
+            苹果官网
+
+            不同屏幕调用不同的 css
+        */
+      @media screen and (max-width: 375px) {
+        body {
+          background-color: red;
+        }
+      }
+      @media screen and (max-width: 1366px) and (min-width: 375px) {
+        body {
+          background-color: yellow;
+        }
+      }
+      @media screen and (min-width: 1366px) {
+        body {
+          background-color: pink;
+        }
+      }
+    </style>
+  </head>
+  <body></body>
+</html>
