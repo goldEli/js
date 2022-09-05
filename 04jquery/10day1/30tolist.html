@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .complete {
+        text-decoration: line-through;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <!--todo list 是一个非常经典的练习dom 增删查改都会涉及到  -->
+    <div>
+      <input type="text" />
+      <button>添加</button>
+    </div>
+    <ul>
+      <!-- <li>吃饭<button>删除</button></li>
+      <li>做作业<button>删除</button></li> -->
+    </ul>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
+    <script>
+      const data = [
+        { id: "222", value: "吃饭", isComplete: false },
+        { id: "333", value: "睡觉", isComplete: true },
+      ];
+      function render(data) {
+        // 清空
+        $("ul").empty();
+        for (let i = 0; i < data.length; ++i) {
+          const item = data[i];
+          const className = item.isComplete ? "complete" : "";
+          const checked = item.isComplete ? "checked" : "";
+          $("ul").append(
+            `<li id=${item.id} class="${className}" ><input ${checked} type="checkbox" >${item.value}<button class="deleteBtn">删除</button></li>`
+          );
+        }
+      }
+
+      let index = 0;
+      function createId() {
+        ++index;
+        return index + "";
+      }
+
+      render(data);
+
+      $("ul").on("click", ".deleteBtn", function (event) {
+        const id = event.target.parentNode.id;
+        for (let i = 0; i < data.length; ++i) {
+          if (data[i].id === id) {
+            data.splice(i, 1);
+          }
+        }
+        console.log(data);
+        render(data);
+      });
+
+      $("ul").on("click", "input", function (event) {
+        const id = event.target.parentNode.id;
+        for (let i = 0; i < data.length; ++i) {
+          if (data[i].id === id) {
+            data[i].isComplete = !data[i].isComplete;
+          }
+        }
+        console.log(data);
+        render(data);
+      });
+
+      $("button").click(function (event) {
+        const value = $("input").val();
+        if (!value) {
+          return;
+        }
+        data.push({
+          id: createId(),
+          value: value,
+        });
+        render(data);
+      });
+    </script>
+  </body>
+</html>
