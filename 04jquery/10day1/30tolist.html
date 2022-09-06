@@ -16,7 +16,7 @@
     <!--todo list 是一个非常经典的练习dom 增删查改都会涉及到  -->
     <div>
       <input id="inputText" type="text" />
-      <button>清空</button>
+      <button id="clearBtn">清空</button>
     </div>
     <ul>
       <!-- <li>吃饭<button>删除</button></li>
@@ -59,16 +59,16 @@
 
       render(data);
 
-      //   $("ul").on("click", ".deleteBtn", function (event) {
-      //     const id = event.target.parentNode.id;
-      //     for (let i = 0; i < data.length; ++i) {
-      //       if (data[i].id === id) {
-      //         data.splice(i, 1);
-      //       }
-      //     }
-      //     console.log(data);
-      //     render(data);
-      //   });
+      $("#clearBtn").on("click", function (event) {
+        for (let i = 0; i < data.length; ++i) {
+          if (data[i].isComplete) {
+            data.splice(i, 1);
+            i--;
+          }
+        }
+        console.log(data);
+        render(data);
+      });
 
       $("ul").on("click", "input", function (event) {
         const id = event.target.parentNode.id;
@@ -93,13 +93,13 @@
         $("#inputText").val("");
       });
 
-      $("#selectAll").on("click", function(event) {
-        const checked = event.target.checked
+      $("#selectAll").on("click", function (event) {
+        const checked = event.target.checked;
         for (let i = 0; i < data.length; ++i) {
-            data[i].isComplete = checked
+          data[i].isComplete = checked;
         }
-        render(data)
-      })
+        render(data);
+      });
     </script>
   </body>
 </html>
