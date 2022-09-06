@@ -40,7 +40,7 @@
           const className = item.isComplete ? "complete" : "";
           const checked = item.isComplete ? "checked" : "";
           $("ul").append(
-            `<li id=${item.id}  ><input ${checked} type="checkbox" ><span class="${className}">${item.value}</span></li>`
+            `<li data-id=${item.id}  ><input ${checked} type="checkbox" ><span class="${className}">${item.value}</span></li>`
           );
         }
         renderStat(data);
@@ -71,7 +71,8 @@
       });
 
       $("ul").on("click", "input", function (event) {
-        const id = event.target.parentNode.id;
+        const id = $(event.target).parent().attr("data-id");
+        console.log(id);
         for (let i = 0; i < data.length; ++i) {
           if (data[i].id === id) {
             data[i].isComplete = !data[i].isComplete;
@@ -94,7 +95,8 @@
       });
 
       $("#selectAll").on("click", function (event) {
-        const checked = event.target.checked;
+        const checked = $(event.target).prop("checked");
+        console.log(checked);
         for (let i = 0; i < data.length; ++i) {
           data[i].isComplete = checked;
         }
