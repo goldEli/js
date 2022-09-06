@@ -8,20 +8,24 @@
     <style>
       .complete {
         text-decoration: line-through;
-        opacity: 0.8;
+        opacity: 0.6;
       }
     </style>
   </head>
   <body>
     <!--todo list 是一个非常经典的练习dom 增删查改都会涉及到  -->
     <div>
-      <input type="text" />
-      <button>添加</button>
+      <input id="inputText" type="text" />
+      <button>清空</button>
     </div>
     <ul>
       <!-- <li>吃饭<button>删除</button></li>
       <li>做作业<button>删除</button></li> -->
     </ul>
+    <div>
+      <span>全选</span><input id="selectAll" type="checkbox" />
+      <span id="stat">1/2</span>
+    </div>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
     <script>
       const data = [
@@ -36,9 +40,15 @@
           const className = item.isComplete ? "complete" : "";
           const checked = item.isComplete ? "checked" : "";
           $("ul").append(
-            `<li id=${item.id} class="${className}" ><input ${checked} type="checkbox" >${item.value}<button class="deleteBtn">删除</button></li>`
+            `<li id=${item.id}  ><input ${checked} type="checkbox" ><span class="${className}">${item.value}</span></li>`
           );
         }
+        renderStat(data);
+      }
+      function renderStat(data) {
+        const len = data.length;
+        const completeLen = data.filter((item) => item.isComplete).length;
+        $("#stat").text(`${completeLen}/${len}`);
       }
 
       let index = 0;
@@ -49,16 +59,16 @@
 
       render(data);
 
-      $("ul").on("click", ".deleteBtn", function (event) {
-        const id = event.target.parentNode.id;
-        for (let i = 0; i < data.length; ++i) {
-          if (data[i].id === id) {
-            data.splice(i, 1);
-          }
-        }
-        console.log(data);
-        render(data);
-      });
+      //   $("ul").on("click", ".deleteBtn", function (event) {
+      //     const id = event.target.parentNode.id;
+      //     for (let i = 0; i < data.length; ++i) {
+      //       if (data[i].id === id) {
+      //         data.splice(i, 1);
+      //       }
+      //     }
+      //     console.log(data);
+      //     render(data);
+      //   });
 
       $("ul").on("click", "input", function (event) {
         const id = event.target.parentNode.id;
@@ -67,12 +77,11 @@
             data[i].isComplete = !data[i].isComplete;
           }
         }
-        console.log(data);
         render(data);
       });
 
-      $("button").click(function (event) {
-        const value = $("input").val();
+      $("#inputText").change(function (event) {
+        const value = $("#inputText").val();
         if (!value) {
           return;
         }
@@ -81,7 +90,16 @@
           value: value,
         });
         render(data);
+        $("#inputText").val("");
       });
+
+      $("#selectAll").on("click", function(event) {
+        const checked = event.target.checked
+        for (let i = 0; i < data.length; ++i) {
+            data[i].isComplete = checked
+        }
+        render(data)
+      })
     </script>
   </body>
 </html>
