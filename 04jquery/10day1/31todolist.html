@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .complete {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
+      .currentPage {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="inputText" type="text" />
+    <!-- 将完成的数据删除 -->
+    <button id="clearBtn">清空</button>
+    <ul>
+      <!-- <li><input checked type="checkbox" /><span class="complete">吃饭111</span></li> -->
+    </ul>
+    <!-- 
+        
+        分页
+        每页展示5条数据
+        那么 页码如何渲染
+    -->
+    <div id="paging">
+      <!-- <span>1</span>
+        <span>2</span>
+        <span>3</span> -->
+    </div>
+    <div>
+      <span>全选</span><input type="checkbox" id="selectAll" />
+      <!-- 统计 已完成/全部 -->
+      <span id="stat"></span>
+    </div>
+    <div>
+      <!-- 
+            失焦的时候搜索
+            搜索后只展示搜索相关的类型 includes
+            清空搜索内容，是不是展示所有
+         -->
+      <input type="text" id="search" placeholder="请输入搜索内容" />
+    </div>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
+    <script>
+      // 后端返回的数据 带id  id确定这条数据的唯一性
+      const data = [
+        { id: "222", value: "吃饭", isComplete: true },
+        { id: "333", value: "睡觉", isComplete: false },
+        { id: "444", value: "作业1", isComplete: false },
+        { id: "555", value: "作业23", isComplete: false },
+        { id: "666", value: "作业wrw", isComplete: false },
+        { id: "777", value: "作业222", isComplete: false },
+        { id: "717", value: "作业222", isComplete: false },
+        { id: "727", value: "作业222", isComplete: false },
+        { id: "737", value: "作业222", isComplete: false },
+        { id: "747", value: "作业222", isComplete: false },
+        { id: "757", value: "作业222", isComplete: false },
+      ];
+      // 每页展示多少个
+      const pageSize = 5;
+      // 基于data渲染列表
+      // 描述了数据 与 视图的关系
+      // ⚠️ 数据驱动 angularjs  reactjs  vuejs
+      function renderList(data, currentPage = 1) {
+        renderPaging(data, currentPage);
+
+        const dataByPage = [];
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const dataByPaging = data.slice(startIndex, endIndex);
+
+        // 先清空页面
+        $("ul").empty();
+        // code
+        for (let i = 0; i < dataByPaging.length; ++i) {
+          const item = dataByPaging[i];
+          const checked = item.isComplete ? "checked" : "";
+          // class 就是一个字符串
+          const className = item.isComplete ? "complete" : "";
+          $("ul").append(
+            `<li><input data-id="${item.id}" ${checked} type="checkbox" /><span class="${className}">${item.value}</span></li>`
+          );
+        }
+
+        // 渲染统计
+        renderStat(dataByPaging);
+      }
+
+      renderList(data);
+
+      // 创建id
+      let index = 0;
+      function createId() {
+        return index++ + "";
+      }
+
+      // 渲染统计
+      function renderStat(data) {
+        let completeNum = 0;
+        for (let i = 0; i < data.length; ++i) {
+          // 如果 isComplete 为 true +1
+          if (data[i].isComplete) {
+            completeNum++;
+          }
+        }
+        const statStr = `${completeNum}/${data.length}`;
+        // 渲染到页面
+        // $("#stat").empty()
+        // $("#stat").append(statStr);
+        $("#stat").text(statStr);
+      }
+
+      // 渲染分页
+      function renderPaging(data, currentPage) {
+        const num = Math.ceil(data.length / pageSize);
+        $("#paging").empty();
+        for (let i = 1; i <= num; ++i) {
+          $("#paging").append(`<span>${i}</span>`);
+        }
+        // 默认选中第一个
+        $("#paging > span")
+          .eq(currentPage - 1)
+          .addClass("currentPage");
+      }
+
+      // 点击页码
+      $("#paging").on("click", "span", function (event) {
+        $("#paging > span").removeClass("currentPage");
+        $(event.target).addClass("currentPage");
+        const currentPage = parseInt($(event.target).text());
+        console.log(currentPage);
+        renderList(data, currentPage);
+      });
+
+      /* 
+        1. input框输入 失焦后 添加到 列表中
+        2. checkbox 选中后 添加完成效果 取消选中后 取消完成效果
+      */
+      // input 失焦添加
+      $("#inputText").on("blur", function (event) {
+        // 去除前后空格
+        const value = event.target.value.trim();
+        // 判空
+        if (!value) {
+          return;
+        }
+        const obj = {
+          id: createId(),
+          // 如果key 和 value的变量名一样 可以省略
+          value,
+          isComplete: false,
+        };
+        /* 
+            数据驱动 
+            1. 数据修改
+            2. 基于新数据 重新渲染页面
+        */
+        data.push(obj);
+        renderList(data);
+        // 清空输入框
+        $(event.target).val("");
+      });
+
+      // 点击checkbox 完成
+      // 内容动态生成 绑定事件：事件代理 绑定到父亲上
+      $("ul").on("change", "input", function (event) {
+        // 当前选中checkbox
+        const dataId = $(event.target).attr("data-id");
+        // 当前是否被选中
+        const checked = $(event.target).prop("checked");
+        // 修改数据
+        // 修改该 id 对应data的数据
+        for (let i = 0; i < data.length; ++i) {
+          const item = data[i];
+          if (item.id === dataId) {
+            item.isComplete = checked;
+          }
+        }
+        // 重新渲染
+        renderList(data);
+      });
+
+      /* 
+        清空已完成的
+        [a,b,c]
+        i = 0 删除a [b, c] i++ i--
+        i = 0 [b, c]
+      */
+      $("#clearBtn").on("click", function (event) {
+        // 删除 isComplete 为 true 的数据
+        for (let i = 0; i < data.length; ++i) {
+          const item = data[i];
+          if (item.isComplete === true) {
+            // 数组删除
+            data.splice(i, 1);
+            i--;
+          }
+        }
+        // 基于新的数据重新渲染
+        renderList(data);
+      });
+
+      /* 
+        全选 
+        1. 拿到全选checkbox checked 值 
+        2. 修改 data 中 isComplete 的值
+      */
+      $("#selectAll").on("change", function (event) {
+        const checked = $(event.target).prop("checked");
+        // 修改data中的数据
+        for (let i = 0; i < data.length; ++i) {
+          data[i].isComplete = checked;
+        }
+        renderList(data);
+      });
+
+      /* 
+       搜索
+       作业  
+       模糊搜索 
+      */
+      $("#search").on("blur", function (event) {
+        // 去除前后空格
+        const value = event.target.value.trim();
+        // 判空
+        if (!value) {
+          // 原来的数据恢复
+          renderList(data);
+          return;
+        }
+        const searchData = [];
+        // value 跟 data 中 每一项 value 进行对比
+        // 作业123  123
+        for (let i = 0; i < data.length; ++i) {
+          // 是否包含子字符串
+          if (data[i].value.includes(value)) {
+            // 我们要保留原有的数据用于恢复
+            searchData.push(data[i]);
+          }
+        }
+        renderList(searchData);
+      });
+    </script>
+  </body>
+</html>

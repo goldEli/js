@@ -16,21 +16,21 @@
     <!--todo list 是一个非常经典的练习dom 增删查改都会涉及到  -->
     <div>
       <input id="inputText" type="text" />
-      <button id="clearBtn">清空</button>
+      <!-- <button id="clearBtn">清空</button> -->
     </div>
     <ul>
       <!-- <li>吃饭<button>删除</button></li>
       <li>做作业<button>删除</button></li> -->
     </ul>
-    <div>
+    <!-- <div>
       <span>全选</span><input id="selectAll" type="checkbox" />
       <span id="stat">1/2</span>
-    </div>
+    </div> -->
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
     <script>
       const data = [
-        { id: "222", value: "吃饭", isComplete: false },
-        { id: "333", value: "睡觉", isComplete: true },
+        { id: "222", value: "吃饭", isComplete: true },
+        { id: "333", value: "睡觉", isComplete: false },
       ];
       function render(data) {
         // 清空

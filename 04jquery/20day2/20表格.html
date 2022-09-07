@@ -163,7 +163,6 @@
         // 3.2 渲染出对应页码的数据
         // 3.2.1获取点击的页码
         nowPage = parseInt($(this).text());
-        console.log('%c [ nowPage ]-166', 'font-size:13px; background:pink; color:#bf2c9f;', nowPage)
         // 3.2.2根据页码 计算起始结束的位置
         let start = (nowPage - 1) * pageSize;
         let end = start + pageSize;
